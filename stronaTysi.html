@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martyna Grzesik - Portfolio HR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
+                    colors: {
+                        brand: { 50: '#fdf2f8', 100: '#fce7f3', 400: '#f472b6', 600: '#db2777', 900: '#831843' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fdf2f8;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(330,100%,96%,1) 0, transparent 40%), 
+                radial-gradient(at 100% 0%, hsla(330,80%,92%,1) 0, transparent 40%),
+                radial-gradient(at 100% 100%, hsla(330,100%,94%,1) 0, transparent 40%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(131, 24, 67, 0.05);
+        }
+        .skill-tag {
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2);
+        }
+    </style>
+</head>
+<body class="text-gray-800 font-sans antialiased selection:bg-brand-400 selection:text-white">
+
+    <nav class="fixed w-full z-50 glass-card py-4 px-8 flex justify-between items-center transition-all duration-300">
+        <div class="font-serif font-bold text-xl text-brand-900 tracking-wider">MG.</div>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
+            <a href="#o-mnie" class="hover:text-brand-600 transition">O mnie</a>
+            <a href="#kompetencje" class="hover:text-brand-600 transition">Kompetencje</a>
+            <a href="#projekty" class="hover:text-brand-600 transition">Projekty</a>
+            <a href="#doswiadczenie" class="hover:text-brand-600 transition">Doświadczenie</a>
+        </div>
+        <a href="#kontakt" class="bg-brand-900 text-white px-5 py-2 rounded-full text-sm hover:bg-brand-600 transition shadow-lg">Kontakt</a>
+    </nav>
+
+    <header class="min-h-screen flex items-center justify-center pt-20 px-4 relative" id="o-mnie">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right" data-aos-duration="1200">
+                <div class="inline-block bg-white text-brand-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 shadow-sm border border-brand-100">
+                    <i class="fa-solid fa-bolt mr-2"></i>Szukam pierwszej pracy w HR
+                </div>
+                <h1 class="text-5xl md:text-6xl font-serif font-bold text-brand-900 leading-tight mb-6">
+                    Łączę <span class="text-brand-400">psychologię</span> <br>z twardym biznesem.
+                </h1>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed font-light">
+                    Cześć, jestem Martyna. Jako absolwentka Psychologii w Biznesie doskonale rozumiem, że za każdym KPI stoją ludzie. Moją ambicją jest budowanie procesów rekrutacyjnych i wdrożeniowych, które są efektywne dla firmy i przyjazne dla kandydatów.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projekty" class="bg-brand-900 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-600 transition shadow-xl hover:-translate-y-1 transform">Zobacz moje projekty</a>
+                    <a href="#kontakt" class="bg-white text-brand-900 px-8 py-4 rounded-full font-medium hover:bg-brand-50 transition shadow border border-brand-100 flex items-center gap-2">
+                        <i class="fa-solid fa-download"></i> Pobierz CV
+                    </a>
+                </div>
+            </div>
+            <div data-aos="fade-left" data-aos-duration="1200" class="relative hidden md:block">
+                <div class="glass-card aspect-square rounded-full flex items-center justify-center p-12 relative">
+                    <div class="absolute inset-0 border-2 border-brand-400 rounded-full animate-[spin_20s_linear_infinite] opacity-30 border-dashed"></div>
+                    <div class="text-center">
+                        <i class="fa-solid fa-users-viewfinder text-7xl text-brand-400 mb-4"></i>
+                        <h3 class="font-serif text-2xl font-bold text-brand-900">Modern HR</h3>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-2">Data & Empathy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-24 px-4 relative z-10" id="kompetencje">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-sm font-bold tracking-widest text-brand-400 uppercase mb-2">Mój warsztat</h2>
+                <h3 class="text-4xl font-serif font-bold text-brand-900">Narzędzia i Kompetencje</h3>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-2xl text-center skill-tag" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-12 h-12 mx-auto bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 text-xl">
+                        <i class="fa-solid fa-file-excel"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-900 mb-1">MS Excel</h4>
+                    <p class="text-xs text-gray-500">Raportowanie, VLOOKUP, analiza danych</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl text-center skill-tag" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-12 h-12 mx-auto bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 text-xl">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-900 mb-1">Sourcing</h4>
+                    <p class="text-xs text-gray-500">Wyszukiwanie kandydatów, Boolean Search</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl text-center skill-tag" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-12 h-12 mx-auto bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 text-xl">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-900 mb-1">Narzędzia AI</h4>
+                    <p class="text-xs text-gray-500">Automatyzacja pracy biurowej, ChatGPT</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl text-center skill-tag" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="w-12 h-12 mx-auto bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 text-xl">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-900 mb-1">Angielski B2</h4>
+                    <p class="text-xs text-gray-500">Swobodna komunikacja i dokumentacja</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white/40 px-4" id="projekty">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-sm font-bold tracking-widest text-brand-400 uppercase mb-2">Moje Case Study</h2>
+                <h3 class="text-4xl font-serif font-bold text-brand-900">Zrozumieć Motywację</h3>
+            </div>
+
+            <div class="glass-card rounded-3xl p-8 md:p-12" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-brand-900 text-white text-xs font-bold px-3 py-1 rounded-full">Praca Dyplomowa</span>
+                    <span class="text-gray-500 text-sm"><i class="fa-regular fa-calendar mr-2"></i>2025</span>
+                </div>
+                <h4 class="text-2xl font-bold text-brand-900 mb-4">Znaczenie feedbacku w motywowaniu pracowników niższego szczebla</h4>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    W ramach mojej pracy dyplomowej przeprowadziłam dogłębną analizę tego, jak informacja zwrotna wpływa na zaangażowanie i retencję pracowników operacyjnych. Udowodniłam, że właściwie skonstruowany feedback potrafi drastycznie zmniejszyć wskaźnik rotacji, co bezpośrednio przekłada się na oszczędności dla firmy.
+                </p>
+                <div class="grid md:grid-cols-3 gap-6 border-t border-brand-100 pt-6">
+                    <div>
+                        <div class="font-bold text-brand-600 text-xl mb-1">Cel</div>
+                        <div class="text-sm text-gray-600">Zrozumienie mechanizmów motywacji pozapłacowej.</div>
+                    </div>
+                    <div>
+                        <div class="font-bold text-brand-600 text-xl mb-1">Wynik</div>
+                        <div class="text-sm text-gray-600">Opracowanie rekomendacji dla managerów liniowych.</div>
+                    </div>
+                    <div>
+                        <div class="font-bold text-brand-600 text-xl mb-1">Kluczowy wniosek</div>
+                        <div class="text-sm text-gray-600">Jakość komunikacji to podstawa retencji.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4" id="doswiadczenie">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-sm font-bold tracking-widest text-brand-400 uppercase mb-2">Ścieżka kariery</h2>
+                <h3 class="text-4xl font-serif font-bold text-brand-900">Moje Doświadczenie</h3>
+            </div>
+
+            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-brand-200">
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" data-aos="fade-up">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-brand-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <i class="fa-solid fa-graduation-cap text-sm"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-bold text-brand-900 text-lg">Samodzielny rozwój HR</h4>
+                            <span class="text-xs font-semibold text-brand-600 bg-brand-100 px-2 py-1 rounded">2025 - Obecnie</span>
+                        </div>
+                        <p class="text-sm text-gray-600">Aktywne poszerzanie wiedzy: szkolenia z zaawansowanych funkcji Excela, nauka technik sourcingu kandydatów oraz przygotowanie do pracy w dziale personalnym.</p>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" data-aos="fade-up">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-brand-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <i class="fa-solid fa-burger text-sm"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl">
+                        <div class="flex flex-wrap items-center justify-between mb-2">
+                            <h4 class="font-bold text-brand-900 text-lg">Onboarding & Obsługa</h4>
+                            <span class="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded">2024 - 2025 | Burger King</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Odpowiedzialność za <strong>wdrażanie nowych pracowników</strong> (onboarding) oraz szkolenie ich ze standardów obsługi. Praca w wysoce dynamicznym środowisku pod presją czasu.</p>
+                        <div class="flex gap-2">
+                            <span class="text-[10px] uppercase font-bold text-brand-600 bg-brand-50 px-2 py-1 rounded">Onboarding</span>
+                            <span class="text-[10px] uppercase font-bold text-brand-600 bg-brand-50 px-2 py-1 rounded">Zarządzanie czasem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" data-aos="fade-up">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-gray-300 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <i class="fa-solid fa-shirt text-sm"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl">
+                        <div class="flex flex-wrap items-center justify-between mb-2">
+                            <h4 class="font-bold text-brand-900 text-lg">Doradca Klienta (KPI)</h4>
+                            <span class="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded">2023 | Solar</span>
+                        </div>
+                        <p class="text-sm text-gray-600">Skuteczna realizacja celów sprzedażowych (KPI) oraz dbanie o Customer Experience. Budowanie długofalowych relacji z klientami.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-900 text-white py-16 px-4" id="kontakt">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-3xl font-serif font-bold mb-6">Porozmawiajmy o współpracy</h3>
+            <p class="text-brand-100 mb-8 max-w-xl mx-auto">Szukam zespołu, w którym będę mogła wykorzystać moją wiedzę z zakresu psychologii biznesu i uczyć się od najlepszych w HR.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
+                <a href="mailto:martyna.grzesik@o2.pl" class="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition border border-white/10">
+                    <i class="fa-solid fa-envelope text-xl text-brand-400"></i>
+                    <span class="font-medium">martyna.grzesik@o2.pl</span>
+                </a>
+                <div class="flex items-center justify-center gap-3 bg-white/10 px-6 py-4 rounded-xl border border-white/10">
+                    <i class="fa-solid fa-phone text-xl text-brand-400"></i>
+                    <span class="font-medium">+48 576 177 703</span>
+                </div>
+            </div>
+
+            <div class="text-[10px] text-brand-100/50 leading-relaxed max-w-3xl mx-auto border-t border-brand-800 pt-8">
+                Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji (zgodnie z ustawą z dnia 10 maja 2018 roku o ochronie danych osobowych (Dz. Ustaw z 2018, poz. 1000) oraz zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych (RODO).
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+    </script>
+</body>
+</html>
