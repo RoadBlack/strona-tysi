@@ -1,258 +1,513 @@
 <!DOCTYPE html>
-<html lang="pl" class="scroll-smooth">
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Martyna Grzesik - Portfolio HR</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
-                    colors: {
-                        brand: { 50: '#fdf2f8', 100: '#fce7f3', 400: '#f472b6', 600: '#db2777', 900: '#831843' }
-                    }
-                }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krecia Dolina — domek letniskowy blisko natury</title>
+  <meta name="description" content="Krecia Dolina — wyjątkowy domek letniskowy wśród natury. Spokój, jezioro, las, taras i klimat, do którego chce się wracać." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: '#27473a',
+            moss: '#5f7f67',
+            sand: '#f2ebdd',
+            clay: '#9a5e4c',
+            lake: '#79a7c9',
+            cream: '#fffaf3'
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(255,255,255,.15), 0 20px 80px rgba(39,71,58,.22)',
+            soft: '0 10px 40px rgba(29, 39, 34, .10)'
+          },
+          animation: {
+            floaty: 'floaty 6s ease-in-out infinite',
+            drift: 'drift 18s linear infinite',
+            pulseSlow: 'pulse 4s ease-in-out infinite'
+          },
+          keyframes: {
+            floaty: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            drift: {
+              '0%': { transform: 'translateX(0) rotate(0deg)' },
+              '50%': { transform: 'translateX(20px) rotate(6deg)' },
+              '100%': { transform: 'translateX(0) rotate(0deg)' }
             }
+          }
         }
-    </script>
-    <style>
-        body {
-            background-color: #fdf2f8;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(330,100%,96%,1) 0, transparent 40%), 
-                radial-gradient(at 100% 0%, hsla(330,80%,92%,1) 0, transparent 40%),
-                radial-gradient(at 100% 100%, hsla(330,100%,94%,1) 0, transparent 40%);
-            background-attachment: fixed;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(131, 24, 67, 0.05);
-        }
-        .skill-tag {
-            transition: all 0.3s ease;
-        }
-        .skill-tag:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2);
-        }
-    </style>
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,.9), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(121,167,201,.16), transparent 22%),
+        linear-gradient(180deg, #f9f5ef 0%, #eef3eb 40%, #f7f1e7 100%);
+      overflow-x: hidden;
+    }
+    .glass {
+      background: rgba(255,255,255,.58);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.5);
+    }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(95,127,103,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(95,127,103,.07) 1px, transparent 1px);
+      background-size: 42px 42px;
+    }
+    .reveal { opacity: 0; transform: translateY(24px); transition: all .8s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+    .leaf {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      opacity: .12;
+      filter: blur(.2px);
+      pointer-events: none;
+    }
+    .noise::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(0,0,0,.025) 1px, transparent 1px);
+      background-size: 12px 12px;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .photo-card:hover .photo-shift { transform: scale(1.06); }
+    .spotlight {
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle, rgba(121,167,201,.24) 0%, rgba(121,167,201,0) 62%);
+      transform: translate(-50%, -50%);
+      filter: blur(20px);
+    }
+  </style>
 </head>
-<body class="text-gray-800 font-sans antialiased selection:bg-brand-400 selection:text-white">
+<body class="text-forest selection:bg-clay selection:text-white">
+  <div id="spotlight" class="spotlight hidden lg:block"></div>
 
-    <nav class="fixed w-full z-50 glass-card py-4 px-8 flex justify-between items-center transition-all duration-300">
-        <div class="font-serif font-bold text-xl text-brand-900 tracking-wider">MG.</div>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-            <a href="#o-mnie" class="hover:text-brand-600 transition">O mnie</a>
-            <a href="#kompetencje" class="hover:text-brand-600 transition">Kompetencje</a>
-            <a href="#projekty" class="hover:text-brand-600 transition">Projekty</a>
-            <a href="#doswiadczenie" class="hover:text-brand-600 transition">Doświadczenie</a>
+  <header class="fixed top-0 inset-x-0 z-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
+      <div class="glass rounded-full shadow-soft px-4 md:px-6 py-3 flex items-center justify-between">
+        <a href="#start" class="flex items-center gap-3 group">
+          <img src="logo.jpg" alt="Logo Krecia Dolina" class="h-11 w-11 rounded-full object-cover ring-2 ring-white/80 shadow-md group-hover:scale-105 transition" />
+          <div>
+            <div class="font-black tracking-[0.2em] text-xs text-clay uppercase">Krecia Dolina</div>
+            <div class="text-sm text-forest/70">domek letniskowy • natura • spokój</div>
+          </div>
+        </a>
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold">
+          <a href="#o-nas" class="hover:text-clay transition">O miejscu</a>
+          <a href="#atrakcje" class="hover:text-clay transition">Atrakcje</a>
+          <a href="#galeria" class="hover:text-clay transition">Galeria</a>
+          <a href="#rezerwacja" class="hover:text-clay transition">Rezerwacja</a>
+        </nav>
+        <a href="#rezerwacja" class="inline-flex items-center rounded-full bg-forest text-white px-5 py-2.5 text-sm font-bold shadow-soft hover:-translate-y-0.5 hover:bg-clay transition">
+          Sprawdź terminy
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="start" class="relative isolate">
+    <section class="relative min-h-screen flex items-center overflow-hidden noise">
+      <div class="absolute inset-0 grid-bg opacity-40"></div>
+      <svg class="leaf left-[5%] top-[20%] animate-drift" viewBox="0 0 100 100"><path fill="#5f7f67" d="M50 6C25 22 14 45 14 64c0 19 16 30 36 30s36-11 36-30C86 45 75 22 50 6Z"/></svg>
+      <svg class="leaf right-[12%] top-[18%] animate-drift" style="animation-delay:-4s" viewBox="0 0 100 100"><path fill="#9a5e4c" d="M50 6C25 22 14 45 14 64c0 19 16 30 36 30s36-11 36-30C86 45 75 22 50 6Z"/></svg>
+      <svg class="leaf right-[8%] bottom-[24%] animate-drift" style="animation-delay:-8s" viewBox="0 0 100 100"><path fill="#79a7c9" d="M50 6C25 22 14 45 14 64c0 19 16 30 36 30s36-11 36-30C86 45 75 22 50 6Z"/></svg>
+
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 pb-16 relative z-10 w-full">
+        <div class="grid lg:grid-cols-[1.15fr_.85fr] gap-10 items-center">
+          <div class="reveal show">
+            <div class="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-4 py-2 text-sm shadow-soft mb-6">
+              <span class="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Miejsce stworzone do oddechu, ciszy i bliskości natury
+            </div>
+            <h1 class="text-5xl sm:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight max-w-4xl">
+              Krecia Dolina —
+              <span class="text-clay">przytulny domek</span>
+              w rytmie lasu, jeziora i spokoju.
+            </h1>
+            <p class="mt-6 text-lg md:text-xl text-forest/75 max-w-2xl leading-relaxed">
+              Kameralne miejsce na odpoczynek dla tych, którzy chcą zwolnić. Naturalny klimat, kojące widoki, przyjazny charakter i przestrzeń, w której od pierwszej sekundy czuć wakacje.
+            </p>
+
+            <div class="mt-8 flex flex-col sm:flex-row gap-4">
+              <a href="#rezerwacja" class="inline-flex items-center justify-center rounded-full bg-forest text-white px-7 py-4 font-bold shadow-glow hover:-translate-y-1 transition">
+                Zarezerwuj pobyt
+              </a>
+              <a href="#galeria" class="inline-flex items-center justify-center rounded-full border border-forest/15 bg-white/75 px-7 py-4 font-bold hover:bg-white transition">
+                Zobacz klimat miejsca
+              </a>
+            </div>
+
+            <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-3xl">
+              <div class="glass rounded-3xl p-4 shadow-soft">
+                <div class="text-3xl font-black text-clay counter" data-target="65">0</div>
+                <div class="text-sm text-forest/70 mt-1">m² przytulnej przestrzeni</div>
+              </div>
+              <div class="glass rounded-3xl p-4 shadow-soft">
+                <div class="text-3xl font-black text-clay counter" data-target="2">0</div>
+                <div class="text-sm text-forest/70 mt-1">sypialnie i wygodny salon</div>
+              </div>
+              <div class="glass rounded-3xl p-4 shadow-soft">
+                <div class="text-3xl font-black text-clay">100%</div>
+                <div class="text-sm text-forest/70 mt-1">nastroju slow, natury i relaksu</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative reveal">
+            <div class="absolute inset-0 bg-gradient-to-br from-lake/30 via-transparent to-clay/20 blur-3xl scale-105"></div>
+            <div class="relative rounded-[2.5rem] glass shadow-glow p-4 md:p-5">
+              <div class="rounded-[2rem] overflow-hidden bg-gradient-to-br from-[#cbdcc6] via-[#f9f4ea] to-[#d5e5ef] min-h-[580px] relative">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,.95),rgba(255,255,255,0)_50%)]"></div>
+                <div class="absolute -top-10 -right-10 w-52 h-52 rounded-full bg-white/45 blur-2xl"></div>
+                <div class="absolute left-6 top-6 rounded-full bg-white/80 px-4 py-2 text-sm font-bold shadow-soft">ultra przyjazny klimat</div>
+                <div class="absolute right-6 bottom-6 rounded-3xl bg-white/80 p-4 shadow-soft max-w-[220px] animate-floaty">
+                  <div class="text-xs uppercase tracking-[0.28em] text-clay font-black">Slow escape</div>
+                  <p class="mt-2 text-sm text-forest/75">Taras, zieleń, woda i przestrzeń, która naprawdę wycisza.</p>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center p-8">
+                  <img src="logo.jpg" alt="Krecia Dolina" class="w-full max-w-[520px] object-contain drop-shadow-[0_20px_55px_rgba(39,71,58,.18)] animate-floaty" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <a href="#kontakt" class="bg-brand-900 text-white px-5 py-2 rounded-full text-sm hover:bg-brand-600 transition shadow-lg">Kontakt</a>
-    </nav>
-
-    <header class="min-h-screen flex items-center justify-center pt-20 px-4 relative" id="o-mnie">
-        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right" data-aos-duration="1200">
-                <div class="inline-block bg-white text-brand-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 shadow-sm border border-brand-100">
-                    <i class="fa-solid fa-bolt mr-2"></i>Szukam pierwszej pracy w HR
-                </div>
-                <h1 class="text-5xl md:text-6xl font-serif font-bold text-brand-900 leading-tight mb-6">
-                    Łączę <span class="text-brand-400">psychologię</span> <br>z twardym biznesem.
-                </h1>
-                <p class="text-lg text-gray-600 mb-8 leading-relaxed font-light">
-                    Cześć, jestem Martyna. Jako absolwentka Psychologii w Biznesie doskonale rozumiem, że za każdym KPI stoją ludzie. Moją ambicją jest budowanie procesów rekrutacyjnych i wdrożeniowych, które są efektywne dla firmy i przyjazne dla kandydatów.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#projekty" class="bg-brand-900 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-600 transition shadow-xl hover:-translate-y-1 transform">Zobacz moje projekty</a>
-                    <a href="#kontakt" class="bg-white text-brand-900 px-8 py-4 rounded-full font-medium hover:bg-brand-50 transition shadow border border-brand-100 flex items-center gap-2">
-                        <i class="fa-solid fa-download"></i> Pobierz CV
-                    </a>
-                </div>
-            </div>
-            <div data-aos="fade-left" data-aos-duration="1200" class="relative hidden md:block">
-                <div class="glass-card aspect-square rounded-full flex items-center justify-center p-12 relative">
-                    <div class="absolute inset-0 border-2 border-brand-400 rounded-full animate-[spin_20s_linear_infinite] opacity-30 border-dashed"></div>
-                    <div class="text-center">
-                        <i class="fa-solid fa-users-viewfinder text-7xl text-brand-400 mb-4"></i>
-                        <h3 class="font-serif text-2xl font-bold text-brand-900">Modern HR</h3>
-                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-2">Data & Empathy</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="py-24 px-4 relative z-10" id="kompetencje">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-sm font-bold tracking-widest text-brand-400 uppercase mb-2">Mój warsztat</h2>
-                <h3 class="text-4xl font-serif font-bold text-brand-900">Narzędzia i Kompetencje</h3>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="glass-card p-6 rounded-2xl text-center skill-tag" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="w-12 h-12 mx-auto bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 text-xl">
-                        <i class="fa-solid fa-file-excel"></i>
-                    </div>
-                    <h4 class="font-bold text-brand-900 mb-1">MS Excel</h4>
-                    <p class="text-xs text-gray-500">Raportowanie, VLOOKUP, analiza danych</p>
-                </div>
-
-                <div class="glass-card p-6 rounded-2xl text-center skill-tag" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="w-12 h-12 mx-auto bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 text-xl">
-                        <i class="fa-solid fa-magnifying-glass-chart"></i>
-                    </div>
-                    <h4 class="font-bold text-brand-900 mb-1">Sourcing</h4>
-                    <p class="text-xs text-gray-500">Wyszukiwanie kandydatów, Boolean Search</p>
-                </div>
-
-                <div class="glass-card p-6 rounded-2xl text-center skill-tag" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="w-12 h-12 mx-auto bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 text-xl">
-                        <i class="fa-solid fa-robot"></i>
-                    </div>
-                    <h4 class="font-bold text-brand-900 mb-1">Narzędzia AI</h4>
-                    <p class="text-xs text-gray-500">Automatyzacja pracy biurowej, ChatGPT</p>
-                </div>
-
-                <div class="glass-card p-6 rounded-2xl text-center skill-tag" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="w-12 h-12 mx-auto bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 text-xl">
-                        <i class="fa-solid fa-comments"></i>
-                    </div>
-                    <h4 class="font-bold text-brand-900 mb-1">Angielski B2</h4>
-                    <p class="text-xs text-gray-500">Swobodna komunikacja i dokumentacja</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <section class="py-24 bg-white/40 px-4" id="projekty">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-sm font-bold tracking-widest text-brand-400 uppercase mb-2">Moje Case Study</h2>
-                <h3 class="text-4xl font-serif font-bold text-brand-900">Zrozumieć Motywację</h3>
-            </div>
-
-            <div class="glass-card rounded-3xl p-8 md:p-12" data-aos="fade-up">
-                <div class="flex items-center gap-4 mb-6">
-                    <span class="bg-brand-900 text-white text-xs font-bold px-3 py-1 rounded-full">Praca Dyplomowa</span>
-                    <span class="text-gray-500 text-sm"><i class="fa-regular fa-calendar mr-2"></i>2025</span>
-                </div>
-                <h4 class="text-2xl font-bold text-brand-900 mb-4">Znaczenie feedbacku w motywowaniu pracowników niższego szczebla</h4>
-                <p class="text-gray-600 mb-6 leading-relaxed">
-                    W ramach mojej pracy dyplomowej przeprowadziłam dogłębną analizę tego, jak informacja zwrotna wpływa na zaangażowanie i retencję pracowników operacyjnych. Udowodniłam, że właściwie skonstruowany feedback potrafi drastycznie zmniejszyć wskaźnik rotacji, co bezpośrednio przekłada się na oszczędności dla firmy.
-                </p>
-                <div class="grid md:grid-cols-3 gap-6 border-t border-brand-100 pt-6">
-                    <div>
-                        <div class="font-bold text-brand-600 text-xl mb-1">Cel</div>
-                        <div class="text-sm text-gray-600">Zrozumienie mechanizmów motywacji pozapłacowej.</div>
-                    </div>
-                    <div>
-                        <div class="font-bold text-brand-600 text-xl mb-1">Wynik</div>
-                        <div class="text-sm text-gray-600">Opracowanie rekomendacji dla managerów liniowych.</div>
-                    </div>
-                    <div>
-                        <div class="font-bold text-brand-600 text-xl mb-1">Kluczowy wniosek</div>
-                        <div class="text-sm text-gray-600">Jakość komunikacji to podstawa retencji.</div>
-                    </div>
-                </div>
-            </div>
+    <section class="relative -mt-8 z-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="reveal rounded-[2rem] bg-white/80 shadow-soft p-6 border border-white/70">
+            <div class="w-12 h-12 rounded-2xl bg-sand flex items-center justify-center mb-4">🌿</div>
+            <h3 class="text-xl font-black">Blisko natury</h3>
+            <p class="text-forest/70 mt-2 leading-relaxed">Widok na zieleń, klimat jeziora i otoczenie stworzone do odpoczynku z dala od zgiełku.</p>
+          </div>
+          <div class="reveal rounded-[2rem] bg-white/80 shadow-soft p-6 border border-white/70" style="transition-delay: .12s">
+            <div class="w-12 h-12 rounded-2xl bg-sand flex items-center justify-center mb-4">🏡</div>
+            <h3 class="text-xl font-black">Przytulny domek</h3>
+            <p class="text-forest/70 mt-2 leading-relaxed">Wygodne wnętrze, taras i naturalna estetyka, która od razu robi ciepłe wrażenie.</p>
+          </div>
+          <div class="reveal rounded-[2rem] bg-white/80 shadow-soft p-6 border border-white/70" style="transition-delay: .24s">
+            <div class="w-12 h-12 rounded-2xl bg-sand flex items-center justify-center mb-4">✨</div>
+            <h3 class="text-xl font-black">Efekt wow</h3>
+            <p class="text-forest/70 mt-2 leading-relaxed">Nowoczesna, interaktywna prezentacja miejsca z miękkimi animacjami i premium klimatem.</p>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section class="py-24 px-4" id="doswiadczenie">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-sm font-bold tracking-widest text-brand-400 uppercase mb-2">Ścieżka kariery</h2>
-                <h3 class="text-4xl font-serif font-bold text-brand-900">Moje Doświadczenie</h3>
+    <section id="o-nas" class="py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
+          <div class="reveal">
+            <p class="text-sm font-black uppercase tracking-[0.25em] text-clay">O miejscu</p>
+            <h2 class="mt-4 text-4xl md:text-5xl font-black leading-tight">Miejsce, w którym poranna kawa smakuje lepiej.</h2>
+            <p class="mt-6 text-lg text-forest/75 leading-relaxed">
+              Krecia Dolina to domek letniskowy stworzony dla osób, które szukają ciszy, zieleni i prawdziwego odpoczynku. Charakter miejsca budują otwarte przestrzenie, naturalne otoczenie oraz atmosfera idealna na weekend we dwoje, rodzinny wyjazd albo spokojne workation.
+            </p>
+            <div class="mt-8 grid sm:grid-cols-2 gap-4">
+              <div class="rounded-3xl bg-white/80 p-5 shadow-soft">
+                <div class="text-sm uppercase tracking-[0.2em] font-black text-clay">Widok</div>
+                <p class="mt-2 text-forest/70">Jezioro, zieleń, przestrzeń i światło wpadające przez duże okna.</p>
+              </div>
+              <div class="rounded-3xl bg-white/80 p-5 shadow-soft">
+                <div class="text-sm uppercase tracking-[0.2em] font-black text-clay">Komfort</div>
+                <p class="mt-2 text-forest/70">Salon, kuchnia, taras, sypialnie i wszystko, czego potrzeba na wygodny pobyt.</p>
+              </div>
             </div>
+          </div>
 
-            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-brand-200">
-                
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" data-aos="fade-up">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-brand-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fa-solid fa-graduation-cap text-sm"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl">
-                        <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-bold text-brand-900 text-lg">Samodzielny rozwój HR</h4>
-                            <span class="text-xs font-semibold text-brand-600 bg-brand-100 px-2 py-1 rounded">2025 - Obecnie</span>
-                        </div>
-                        <p class="text-sm text-gray-600">Aktywne poszerzanie wiedzy: szkolenia z zaawansowanych funkcji Excela, nauka technik sourcingu kandydatów oraz przygotowanie do pracy w dziale personalnym.</p>
-                    </div>
+          <div class="reveal">
+            <div class="rounded-[2.25rem] p-6 bg-gradient-to-br from-white via-[#f8f3ea] to-[#e7f0ec] shadow-glow border border-white/70">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="col-span-2 rounded-[1.7rem] bg-forest text-white p-6 relative overflow-hidden">
+                  <div class="absolute -right-5 -top-5 w-28 h-28 rounded-full bg-white/10"></div>
+                  <div class="text-sm uppercase tracking-[0.24em] text-white/70 font-black">Dlaczego tutaj?</div>
+                  <div class="mt-3 text-2xl font-black">Bo odpoczynek powinien być prosty, piękny i naturalny.</div>
                 </div>
-
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" data-aos="fade-up">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-brand-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fa-solid fa-burger text-sm"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl">
-                        <div class="flex flex-wrap items-center justify-between mb-2">
-                            <h4 class="font-bold text-brand-900 text-lg">Onboarding & Obsługa</h4>
-                            <span class="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded">2024 - 2025 | Burger King</span>
-                        </div>
-                        <p class="text-sm text-gray-600 mb-3">Odpowiedzialność za <strong>wdrażanie nowych pracowników</strong> (onboarding) oraz szkolenie ich ze standardów obsługi. Praca w wysoce dynamicznym środowisku pod presją czasu.</p>
-                        <div class="flex gap-2">
-                            <span class="text-[10px] uppercase font-bold text-brand-600 bg-brand-50 px-2 py-1 rounded">Onboarding</span>
-                            <span class="text-[10px] uppercase font-bold text-brand-600 bg-brand-50 px-2 py-1 rounded">Zarządzanie czasem</span>
-                        </div>
-                    </div>
+                <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
+                  <div class="text-3xl mb-3">🌲</div>
+                  <div class="font-black">Las i przestrzeń</div>
+                  <div class="text-sm text-forest/70 mt-1">idealne na reset</div>
                 </div>
-
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" data-aos="fade-up">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-gray-300 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fa-solid fa-shirt text-sm"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl">
-                        <div class="flex flex-wrap items-center justify-between mb-2">
-                            <h4 class="font-bold text-brand-900 text-lg">Doradca Klienta (KPI)</h4>
-                            <span class="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded">2023 | Solar</span>
-                        </div>
-                        <p class="text-sm text-gray-600">Skuteczna realizacja celów sprzedażowych (KPI) oraz dbanie o Customer Experience. Budowanie długofalowych relacji z klientami.</p>
-                    </div>
+                <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
+                  <div class="text-3xl mb-3">🛶</div>
+                  <div class="font-black">Klimat jeziora</div>
+                  <div class="text-sm text-forest/70 mt-1">spokój i swoboda</div>
                 </div>
-
+                <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
+                  <div class="text-3xl mb-3">☀️</div>
+                  <div class="font-black">Taras i światło</div>
+                  <div class="text-sm text-forest/70 mt-1">poranki z widokiem</div>
+                </div>
+                <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
+                  <div class="text-3xl mb-3">🐾</div>
+                  <div class="font-black">Domowa atmosfera</div>
+                  <div class="text-sm text-forest/70 mt-1">ciepło i swoboda</div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <footer class="bg-brand-900 text-white py-16 px-4" id="kontakt">
-        <div class="max-w-4xl mx-auto text-center">
-            <h3 class="text-3xl font-serif font-bold mb-6">Porozmawiajmy o współpracy</h3>
-            <p class="text-brand-100 mb-8 max-w-xl mx-auto">Szukam zespołu, w którym będę mogła wykorzystać moją wiedzę z zakresu psychologii biznesu i uczyć się od najlepszych w HR.</p>
-            
-            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
-                <a href="mailto:martyna.grzesik@o2.pl" class="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-4 rounded-xl transition border border-white/10">
-                    <i class="fa-solid fa-envelope text-xl text-brand-400"></i>
-                    <span class="font-medium">martyna.grzesik@o2.pl</span>
-                </a>
-                <div class="flex items-center justify-center gap-3 bg-white/10 px-6 py-4 rounded-xl border border-white/10">
-                    <i class="fa-solid fa-phone text-xl text-brand-400"></i>
-                    <span class="font-medium">+48 576 177 703</span>
-                </div>
-            </div>
-
-            <div class="text-[10px] text-brand-100/50 leading-relaxed max-w-3xl mx-auto border-t border-brand-800 pt-8">
-                Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji (zgodnie z ustawą z dnia 10 maja 2018 roku o ochronie danych osobowych (Dz. Ustaw z 2018, poz. 1000) oraz zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych (RODO).
-            </div>
+    <section id="atrakcje" class="py-24 bg-white/50 border-y border-white/70">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <p class="text-sm font-black uppercase tracking-[0.25em] text-clay">Atmosfera pobytu</p>
+          <h2 class="mt-4 text-4xl md:text-5xl font-black">Wakacje, które nie męczą — tylko regenerują.</h2>
+          <p class="mt-5 text-lg text-forest/75">Projekt strony oparty jest o to, co najmocniej przyciąga uwagę: duże hero, miękkie animacje, szklane karty, mocne CTA, kontrast emocji i naturalne premium detale.</p>
         </div>
-    </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            once: true,
-            offset: 100,
-            duration: 800,
-            easing: 'ease-out-cubic',
-        });
-    </script>
+        <div class="mt-14 grid lg:grid-cols-3 gap-6">
+          <div class="reveal rounded-[2rem] p-7 bg-gradient-to-br from-[#edf6ef] to-white shadow-soft">
+            <div class="text-4xl">🌅</div>
+            <h3 class="mt-5 text-2xl font-black">Poranki na tarasie</h3>
+            <p class="mt-3 text-forest/70 leading-relaxed">Spokojny start dnia, kawa, światło i widok, który robi nastrój bez żadnego pośpiechu.</p>
+          </div>
+          <div class="reveal rounded-[2rem] p-7 bg-gradient-to-br from-[#f8efe5] to-white shadow-soft" style="transition-delay: .1s">
+            <div class="text-4xl">🔥</div>
+            <h3 class="mt-5 text-2xl font-black">Wieczory z klimatem</h3>
+            <p class="mt-3 text-forest/70 leading-relaxed">Ciepłe światło, rozmowy, relaks i ta przyjemna cisza, którą pamięta się długo po wyjeździe.</p>
+          </div>
+          <div class="reveal rounded-[2rem] p-7 bg-gradient-to-br from-[#eef5fa] to-white shadow-soft" style="transition-delay: .2s">
+            <div class="text-4xl">💚</div>
+            <h3 class="mt-5 text-2xl font-black">Naturalny reset</h3>
+            <p class="mt-3 text-forest/70 leading-relaxed">Idealny wybór dla osób, które chcą na chwilę odłączyć się od miasta i wrócić do prostych przyjemności.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria" class="py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 reveal">
+          <div>
+            <p class="text-sm font-black uppercase tracking-[0.25em] text-clay">Galeria w klimacie natury</p>
+            <h2 class="mt-3 text-4xl md:text-5xl font-black">Sekcje, które mają zatrzymywać wzrok.</h2>
+          </div>
+          <div class="text-forest/70 max-w-xl">Poniżej znalazły się kadry stylizowane na premium landing page: miękkie światło, organiczne kształty, warstwowość i spokojna kolorystyka inspirowana logo.</div>
+        </div>
+
+        <div class="mt-12 grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+          <button class="photo-card reveal group rounded-[2rem] overflow-hidden relative min-h-[360px] text-left shadow-soft" data-title="Domowa przytulność" data-copy="Ciepłe materiały, naturalne światło i spokojny charakter miejsca.">
+            <div class="photo-shift absolute inset-0 transition duration-700 bg-[linear-gradient(160deg,rgba(92,125,96,.92),rgba(121,167,201,.5)),url('logo.jpg')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"></div>
+            <div class="absolute left-5 right-5 bottom-5 text-white">
+              <div class="text-xs uppercase tracking-[0.24em] text-white/70 font-black">01</div>
+              <div class="mt-2 text-2xl font-black">Domowa przytulność</div>
+            </div>
+          </button>
+
+          <button class="photo-card reveal group rounded-[2rem] overflow-hidden relative min-h-[360px] text-left shadow-soft" style="transition-delay: .08s" data-title="Nad wodą i zielenią" data-copy="Natura, przestrzeń i wakacyjna lekkość, które od razu budują emocję miejsca.">
+            <div class="photo-shift absolute inset-0 transition duration-700 bg-gradient-to-br from-lake via-[#9ec4b7] to-[#edf4ef]"></div>
+            <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.95), transparent 20%), radial-gradient(circle at 70% 72%, rgba(255,255,255,.6), transparent 14%), linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.12));"></div>
+            <div class="absolute bottom-0 inset-x-0 h-24 bg-[#6c97bb]"></div>
+            <div class="absolute bottom-10 left-8 w-32 h-7 rounded-full bg-[#9ec16e] rotate-6"></div>
+            <div class="absolute bottom-14 right-14 w-24 h-6 rounded-full bg-[#85b25e] -rotate-6"></div>
+            <div class="absolute left-5 right-5 bottom-5 text-white">
+              <div class="text-xs uppercase tracking-[0.24em] text-white/70 font-black">02</div>
+              <div class="mt-2 text-2xl font-black">Nad wodą i zielenią</div>
+            </div>
+          </button>
+
+          <button class="photo-card reveal group rounded-[2rem] overflow-hidden relative min-h-[360px] text-left shadow-soft" style="transition-delay: .16s" data-title="Spokój slow travel" data-copy="Minimalny pośpiech, maksymalny oddech. Tu klimat robi całą robotę.">
+            <div class="photo-shift absolute inset-0 transition duration-700 bg-gradient-to-br from-[#f3e4d5] via-[#fffaf3] to-[#d9e6d5]"></div>
+            <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-white/70 blur-xl"></div>
+            <div class="absolute bottom-0 inset-x-0 h-28 bg-[#89b481]"></div>
+            <div class="absolute bottom-16 left-8 w-52 h-16 rounded-[999px] bg-[#6d8d58]"></div>
+            <div class="absolute bottom-24 right-8 w-36 h-24 rounded-[2rem] bg-[#b76d54]"></div>
+            <div class="absolute bottom-28 right-12 w-28 h-20 rounded-t-[1.6rem] bg-[#f2ebdd]"></div>
+            <div class="absolute left-5 right-5 bottom-5 text-forest">
+              <div class="text-xs uppercase tracking-[0.24em] text-forest/60 font-black">03</div>
+              <div class="mt-2 text-2xl font-black">Spokój slow travel</div>
+            </div>
+          </button>
+
+          <button class="photo-card reveal group rounded-[2rem] overflow-hidden relative min-h-[360px] text-left shadow-soft" style="transition-delay: .24s" data-title="Wieczorny klimat" data-copy="Miękkie światło, ciepłe kolory i nastrojowy finisz dnia.">
+            <div class="photo-shift absolute inset-0 transition duration-700 bg-gradient-to-br from-[#27473a] via-[#4d6b5b] to-[#9a5e4c]"></div>
+            <div class="absolute inset-x-0 bottom-0 h-32 bg-black/20"></div>
+            <div class="absolute top-16 left-12 w-24 h-24 rounded-full bg-[#ffd9a4]/40 blur-2xl animate-pulseSlow"></div>
+            <div class="absolute left-5 right-5 bottom-5 text-white">
+              <div class="text-xs uppercase tracking-[0.24em] text-white/70 font-black">04</div>
+              <div class="mt-2 text-2xl font-black">Wieczorny klimat</div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="rezerwacja" class="py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="rounded-[2.5rem] overflow-hidden relative bg-gradient-to-br from-forest via-[#355444] to-clay text-white shadow-glow">
+          <div class="absolute inset-0 opacity-20" style="background: radial-gradient(circle at top right, rgba(255,255,255,.45), transparent 26%), radial-gradient(circle at bottom left, rgba(121,167,201,.45), transparent 32%);"></div>
+          <div class="relative grid lg:grid-cols-[1fr_.9fr] gap-10 p-8 md:p-12 lg:p-14 items-center">
+            <div class="reveal show">
+              <p class="text-sm font-black uppercase tracking-[0.25em] text-white/70">Rezerwacja</p>
+              <h2 class="mt-4 text-4xl md:text-5xl font-black leading-tight">Wybierz platformę i zaplanuj swój pobyt w Kreciej Dolinie.</h2>
+              <p class="mt-5 text-white/80 text-lg leading-relaxed">Strona została przygotowana tak, żeby prowadzić użytkownika prosto do działania: szybko, jasno i z emocją. Jeden klik i można przejść do rezerwacji na Airbnb albo Booking.</p>
+            </div>
+
+            <div class="grid gap-4 reveal">
+              <a target="_blank" rel="noopener noreferrer" href="https://www.airbnb.co.in/rooms/1182717664666111380?source_impression_id=p3_1776616766_P3TDRCSENpQHe4U1" class="group rounded-[2rem] bg-white/10 hover:bg-white/15 border border-white/15 p-6 flex items-center justify-between transition hover:-translate-y-1">
+                <div class="flex items-center gap-4">
+                  <div class="w-14 h-14 rounded-2xl bg-white/90 text-[#ff5a5f] flex items-center justify-center shadow-soft">
+                    <svg viewBox="0 0 32 32" class="w-7 h-7" fill="currentColor" aria-hidden="true"><path d="M16 3.2c-1.8 0-3.2 1-4 2.6L4.7 21c-1.5 3.2.7 7 4.3 7 1.7 0 3.2-.9 4-2.4l3-5.6 3 5.6c.8 1.5 2.3 2.4 4 2.4 3.6 0 5.8-3.8 4.3-7L20 5.8c-.8-1.6-2.2-2.6-4-2.6Zm0 4.4c.5 0 1 .3 1.3.9l7.2 15.1c.4.8-.2 1.7-1.1 1.7-.4 0-.8-.2-1-.6L18 16.5c-.4-.7-1.1-1.1-2-1.1s-1.6.4-2 1.1l-4.4 8.2c-.2.4-.6.6-1 .6-.9 0-1.5-.9-1.1-1.7l7.2-15.1c.3-.6.8-.9 1.3-.9Zm0 4.8c-1.3 0-2.4 1.1-2.4 2.4S14.7 17.2 16 17.2s2.4-1.1 2.4-2.4S17.3 12.4 16 12.4Z"/></svg>
+                  </div>
+                  <div>
+                    <div class="font-black text-xl">Airbnb</div>
+                    <div class="text-white/70 text-sm">Rezerwacja przez Airbnb</div>
+                  </div>
+                </div>
+                <span class="text-white/80 font-bold group-hover:translate-x-1 transition">Przejdź →</span>
+              </a>
+
+              <a target="_blank" rel="noopener noreferrer" href="https://www.booking.com/hotel/pl/krecia-dolina.pl.html" class="group rounded-[2rem] bg-white/10 hover:bg-white/15 border border-white/15 p-6 flex items-center justify-between transition hover:-translate-y-1">
+                <div class="flex items-center gap-4">
+                  <div class="w-14 h-14 rounded-2xl bg-white/90 text-[#003b95] flex items-center justify-center shadow-soft">
+                    <svg viewBox="0 0 24 24" class="w-7 h-7" fill="currentColor" aria-hidden="true"><path d="M4 4h8.2c3.1 0 5.2 1.7 5.2 4.4 0 1.8-.8 3-2.3 3.7 2 .6 3.1 2 3.1 4.1 0 3-2.4 4.8-5.9 4.8H4V4Zm7.7 6.7c1.5 0 2.3-.7 2.3-1.9 0-1.1-.8-1.8-2.2-1.8H7.6v3.7h4.1Zm.4 7.3c1.7 0 2.7-.8 2.7-2.2 0-1.3-.9-2.1-2.7-2.1H7.6V18h4.5Z"/></svg>
+                  </div>
+                  <div>
+                    <div class="font-black text-xl">Booking.com</div>
+                    <div class="text-white/70 text-sm">Rezerwacja przez Booking</div>
+                  </div>
+                </div>
+                <span class="text-white/80 font-bold group-hover:translate-x-1 transition">Przejdź →</span>
+              </a>
+
+              <div class="rounded-[2rem] bg-white/10 border border-white/15 p-5 text-white/75 text-sm leading-relaxed">
+                <span class="font-black text-white">Tip:</span> możesz tu dodać później numer telefonu, formularz kontaktowy, mapę Google, prawdziwe zdjęcia obiektu albo kalendarz dostępności.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="rounded-[2.5rem] bg-white/80 shadow-soft p-8 md:p-10 reveal">
+          <div class="grid lg:grid-cols-[.9fr_1.1fr] gap-10 items-start">
+            <div>
+              <p class="text-sm font-black uppercase tracking-[0.25em] text-clay">FAQ</p>
+              <h2 class="mt-3 text-4xl font-black">Co jeszcze można rozbudować?</h2>
+              <p class="mt-4 text-forest/70 leading-relaxed">Ta wersja to mocny, estetyczny landing page. Bardzo łatwo można go rozwinąć o dodatkowe sekcje i własne materiały.</p>
+            </div>
+            <div class="space-y-4">
+              <details class="group rounded-3xl bg-sand/70 p-5">
+                <summary class="list-none cursor-pointer font-black flex items-center justify-between">Prawdziwa galeria zdjęć <span class="group-open:rotate-45 transition text-clay text-2xl">+</span></summary>
+                <p class="mt-3 text-forest/70">Wystarczy podmienić bloki galerii na realne fotografie domku i okolicy. Najlepszy efekt da duże zdjęcie hero oraz 6–8 fotografii lifestyle.</p>
+              </details>
+              <details class="group rounded-3xl bg-sand/70 p-5">
+                <summary class="list-none cursor-pointer font-black flex items-center justify-between">Mapa i lokalizacja <span class="group-open:rotate-45 transition text-clay text-2xl">+</span></summary>
+                <p class="mt-3 text-forest/70">Można dodać mapę dojazdu, najbliższe atrakcje, restauracje, trasy spacerowe albo plan wypoczynku na weekend.</p>
+              </details>
+              <details class="group rounded-3xl bg-sand/70 p-5">
+                <summary class="list-none cursor-pointer font-black flex items-center justify-between">Formularz kontaktowy <span class="group-open:rotate-45 transition text-clay text-2xl">+</span></summary>
+                <p class="mt-3 text-forest/70">Jeżeli chcesz, strona może mieć też własny formularz, WhatsApp, Messenger albo direct booking bez pośredników.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="fixed inset-0 bg-black/60 z-[60] hidden items-center justify-center p-4">
+    <div class="max-w-xl w-full rounded-[2rem] bg-white p-8 shadow-glow relative">
+      <button id="closeModal" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-sand hover:bg-[#eadfcb] transition text-2xl">×</button>
+      <div class="text-sm font-black uppercase tracking-[0.25em] text-clay">Podgląd sekcji</div>
+      <h3 id="modalTitle" class="mt-3 text-3xl font-black">Tytuł</h3>
+      <p id="modalCopy" class="mt-4 text-lg text-forest/75 leading-relaxed">Opis</p>
+    </div>
+  </div>
+
+  <footer class="border-t border-white/70 bg-white/55">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo.jpg" alt="Krecia Dolina logo" class="h-12 w-12 rounded-full object-cover" />
+        <div>
+          <div class="font-black">Krecia Dolina</div>
+          <div class="text-sm text-forest/65">Strona w klimacie natury i slow wypoczynku</div>
+        </div>
+      </div>
+      <div class="text-sm text-forest/60">© Krecia Dolina — projekt landing page z Tailwind CSS</div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = Number(el.dataset.target);
+        let current = 0;
+        const duration = 900;
+        const stepTime = Math.max(20, duration / target);
+        const timer = setInterval(() => {
+          current += 1;
+          el.textContent = current;
+          if (current >= target) clearInterval(timer);
+        }, stepTime);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.7 });
+    counters.forEach(el => counterObserver.observe(el));
+
+    const spotlight = document.getElementById('spotlight');
+    window.addEventListener('mousemove', (e) => {
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top = e.clientY + 'px';
+    });
+
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCopy = document.getElementById('modalCopy');
+    document.querySelectorAll('.photo-card').forEach(card => {
+      card.addEventListener('click', () => {
+        modalTitle.textContent = card.dataset.title;
+        modalCopy.textContent = card.dataset.copy;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      });
+    });
+    document.getElementById('closeModal').addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
+  </script>
 </body>
 </html>
