@@ -3,39 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Krecia Dolina — domek letniskowy blisko natury</title>
-  <meta name="description" content="Krecia Dolina — wyjątkowy domek letniskowy wśród natury. Spokój, jezioro, las, taras i klimat, do którego chce się wracać." />
+  <title>Krecia Dolina — butikowy domek wśród natury</title>
+  <meta name="description" content="Krecia Dolina to stylowy domek letniskowy z balią, tarasem i klimatem slow premium. Odpocznij blisko natury i zarezerwuj pobyt przez Airbnb lub Booking." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            forest: '#27473a',
-            moss: '#5f7f67',
-            sand: '#f2ebdd',
-            clay: '#9a5e4c',
-            lake: '#79a7c9',
-            cream: '#fffaf3'
+            ink: '#08111f',
+            deep: '#0d1b2f',
+            midnight: '#11253e',
+            ocean: '#1e5b7a',
+            teal: '#25a7b8',
+            aqua: '#89e0ea',
+            mist: '#eef8fb',
+            sand: '#f7f5f1'
           },
           boxShadow: {
-            glow: '0 0 0 1px rgba(255,255,255,.15), 0 20px 80px rgba(39,71,58,.22)',
-            soft: '0 10px 40px rgba(29, 39, 34, .10)'
+            luxe: '0 30px 80px rgba(8, 17, 31, .16)',
+            float: '0 20px 60px rgba(17, 37, 62, .18)',
+            glow: '0 0 0 1px rgba(137,224,234,.22), 0 24px 70px rgba(37,167,184,.16)'
           },
           animation: {
-            floaty: 'floaty 6s ease-in-out infinite',
-            drift: 'drift 18s linear infinite',
-            pulseSlow: 'pulse 4s ease-in-out infinite'
+            drift: 'drift 7s ease-in-out infinite',
+            fadeUp: 'fadeUp .9s ease forwards',
+            pulseRing: 'pulseRing 2.6s ease-out infinite'
           },
           keyframes: {
-            floaty: {
-              '0%, 100%': { transform: 'translateY(0px)' },
+            drift: {
+              '0%,100%': { transform: 'translateY(0px)' },
               '50%': { transform: 'translateY(-10px)' }
             },
-            drift: {
-              '0%': { transform: 'translateX(0) rotate(0deg)' },
-              '50%': { transform: 'translateX(20px) rotate(6deg)' },
-              '100%': { transform: 'translateX(0) rotate(0deg)' }
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(26px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            pulseRing: {
+              '0%': { boxShadow: '0 0 0 0 rgba(137,224,234,.35)' },
+              '70%': { boxShadow: '0 0 0 18px rgba(137,224,234,0)' },
+              '100%': { boxShadow: '0 0 0 0 rgba(137,224,234,0)' }
             }
           }
         }
@@ -45,385 +52,421 @@
   <style>
     html { scroll-behavior: smooth; }
     body {
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,.9), transparent 28%),
-        radial-gradient(circle at 80% 0%, rgba(121,167,201,.16), transparent 22%),
-        linear-gradient(180deg, #f9f5ef 0%, #eef3eb 40%, #f7f1e7 100%);
       overflow-x: hidden;
+      background:
+        radial-gradient(circle at top, rgba(137,224,234,.20), transparent 24%),
+        linear-gradient(180deg, #f6fbfd 0%, #edf7fa 35%, #f7f5f1 100%);
+    }
+    .grid-lines {
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
     .glass {
-      background: rgba(255,255,255,.58);
+      background: rgba(255,255,255,.10);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,.5);
+      border: 1px solid rgba(255,255,255,.14);
     }
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(95,127,103,.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(95,127,103,.07) 1px, transparent 1px);
-      background-size: 42px 42px;
+    .glass-light {
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,.75);
     }
-    .reveal { opacity: 0; transform: translateY(24px); transition: all .8s ease; }
-    .reveal.show { opacity: 1; transform: translateY(0); }
-    .leaf {
-      position: absolute;
-      width: 26px;
-      height: 26px;
-      opacity: .12;
-      filter: blur(.2px);
+    .hero-overlay {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(137,224,234,.18), transparent 18%),
+        radial-gradient(circle at 80% 0%, rgba(37,167,184,.20), transparent 20%),
+        linear-gradient(135deg, rgba(8,17,31,.96) 0%, rgba(13,27,47,.94) 35%, rgba(17,37,62,.88) 70%, rgba(30,91,122,.80) 100%);
+    }
+    .text-balance { text-wrap: balance; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .spotlight {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border-radius: 9999px;
       pointer-events: none;
+      filter: blur(42px);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      background: radial-gradient(circle, rgba(137,224,234,.20), rgba(137,224,234,0) 68%);
     }
-    .noise::before {
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { scrollbar-width: none; }
+    .gallery-card img { transition: transform .6s ease; }
+    .gallery-card:hover img { transform: scale(1.06); }
+    .gradient-stroke {
+      position: relative;
+      isolation: isolate;
+    }
+    .gradient-stroke::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(rgba(0,0,0,.025) 1px, transparent 1px);
-      background-size: 12px 12px;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-    }
-    .photo-card:hover .photo-shift { transform: scale(1.06); }
-    .spotlight {
-      position: fixed;
-      width: 360px;
-      height: 360px;
-      border-radius: 9999px;
-      pointer-events: none;
-      z-index: 0;
-      background: radial-gradient(circle, rgba(121,167,201,.24) 0%, rgba(121,167,201,0) 62%);
-      transform: translate(-50%, -50%);
-      filter: blur(20px);
+      padding: 1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(137,224,234,.55), rgba(255,255,255,.6), rgba(37,167,184,.28));
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      z-index: -1;
     }
   </style>
 </head>
-<body class="text-forest selection:bg-clay selection:text-white">
+<body class="text-ink antialiased selection:bg-aqua selection:text-ink">
   <div id="spotlight" class="spotlight hidden lg:block"></div>
 
   <header class="fixed top-0 inset-x-0 z-50">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
-      <div class="glass rounded-full shadow-soft px-4 md:px-6 py-3 flex items-center justify-between">
-        <a href="#start" class="flex items-center gap-3 group">
-          <img src="logo.jpg" alt="Logo Krecia Dolina" class="h-11 w-11 rounded-full object-cover ring-2 ring-white/80 shadow-md group-hover:scale-105 transition" />
-          <div>
-            <div class="font-black tracking-[0.2em] text-xs text-clay uppercase">Krecia Dolina</div>
-            <div class="text-sm text-forest/70">domek letniskowy • natura • spokój</div>
+      <div class="glass rounded-full px-4 sm:px-6 py-3 text-white shadow-float flex items-center justify-between">
+        <a href="#start" class="flex items-center gap-3 min-w-0">
+          <img src="https://github.com/RoadBlack/strona-tysi/blob/main/.github/workflows/logoo.jpeg?raw=true" alt="Krecia Dolina" class="h-11 w-11 rounded-full object-cover ring-2 ring-white/30 shadow-lg" />
+          <div class="min-w-0">
+            <div class="text-[11px] uppercase tracking-[0.32em] text-aqua font-extrabold">Krecia Dolina</div>
+            <div class="text-sm text-white/75 truncate">butikowy domek letniskowy</div>
           </div>
         </a>
-        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold">
-          <a href="#o-nas" class="hover:text-clay transition">O miejscu</a>
-          <a href="#atrakcje" class="hover:text-clay transition">Atrakcje</a>
-          <a href="#galeria" class="hover:text-clay transition">Galeria</a>
-          <a href="#rezerwacja" class="hover:text-clay transition">Rezerwacja</a>
+
+        <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-white/80">
+          <a href="#o-miejscu" class="hover:text-white transition">O miejscu</a>
+          <a href="#udogodnienia" class="hover:text-white transition">Udogodnienia</a>
+          <a href="#galeria" class="hover:text-white transition">Galeria</a>
+          <a href="#opinie" class="hover:text-white transition">Opinie</a>
+          <a href="#rezerwacja" class="hover:text-white transition">Rezerwacja</a>
         </nav>
-        <a href="#rezerwacja" class="inline-flex items-center rounded-full bg-forest text-white px-5 py-2.5 text-sm font-bold shadow-soft hover:-translate-y-0.5 hover:bg-clay transition">
-          Sprawdź terminy
-        </a>
+
+        <div class="flex items-center gap-3">
+          <a href="#rezerwacja" class="hidden sm:inline-flex rounded-full bg-white text-ink px-5 py-2.5 text-sm font-extrabold hover:bg-aqua hover:text-ink transition">Zarezerwuj</a>
+          <button id="menuBtn" class="lg:hidden h-11 w-11 rounded-full border border-white/15 bg-white/10 flex items-center justify-center" aria-label="Otwórz menu">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden lg:hidden px-4 sm:px-6 mt-3">
+      <div class="mx-auto max-w-7xl glass rounded-3xl p-5 text-white shadow-float">
+        <div class="grid gap-3 text-base font-semibold">
+          <a href="#o-miejscu" class="mobile-link rounded-2xl bg-white/5 px-4 py-3">O miejscu</a>
+          <a href="#udogodnienia" class="mobile-link rounded-2xl bg-white/5 px-4 py-3">Udogodnienia</a>
+          <a href="#galeria" class="mobile-link rounded-2xl bg-white/5 px-4 py-3">Galeria</a>
+          <a href="#opinie" class="mobile-link rounded-2xl bg-white/5 px-4 py-3">Opinie</a>
+          <a href="#rezerwacja" class="mobile-link rounded-2xl bg-aqua text-ink px-4 py-3 font-extrabold">Rezerwacja</a>
+        </div>
       </div>
     </div>
   </header>
 
   <main id="start" class="relative isolate">
-    <section class="relative min-h-screen flex items-center overflow-hidden noise">
-      <div class="absolute inset-0 grid-bg opacity-40"></div>
-      <svg class="leaf left-[5%] top-[20%] animate-drift" viewBox="0 0 100 100"><path fill="#5f7f67" d="M50 6C25 22 14 45 14 64c0 19 16 30 36 30s36-11 36-30C86 45 75 22 50 6Z"/></svg>
-      <svg class="leaf right-[12%] top-[18%] animate-drift" style="animation-delay:-4s" viewBox="0 0 100 100"><path fill="#9a5e4c" d="M50 6C25 22 14 45 14 64c0 19 16 30 36 30s36-11 36-30C86 45 75 22 50 6Z"/></svg>
-      <svg class="leaf right-[8%] bottom-[24%] animate-drift" style="animation-delay:-8s" viewBox="0 0 100 100"><path fill="#79a7c9" d="M50 6C25 22 14 45 14 64c0 19 16 30 36 30s36-11 36-30C86 45 75 22 50 6Z"/></svg>
+    <section class="relative min-h-screen flex items-center overflow-hidden text-white hero-overlay grid-lines">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(137,224,234,.16),transparent_28%)]"></div>
+      <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#f6fbfd] to-transparent"></div>
 
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 pb-16 relative z-10 w-full">
-        <div class="grid lg:grid-cols-[1.15fr_.85fr] gap-10 items-center">
-          <div class="reveal show">
-            <div class="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-4 py-2 text-sm shadow-soft mb-6">
-              <span class="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              Miejsce stworzone do oddechu, ciszy i bliskości natury
-            </div>
-            <h1 class="text-5xl sm:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight max-w-4xl">
-              Krecia Dolina —
-              <span class="text-clay">przytulny domek</span>
-              w rytmie lasu, jeziora i spokoju.
-            </h1>
-            <p class="mt-6 text-lg md:text-xl text-forest/75 max-w-2xl leading-relaxed">
-              Kameralne miejsce na odpoczynek dla tych, którzy chcą zwolnić. Naturalny klimat, kojące widoki, przyjazny charakter i przestrzeń, w której od pierwszej sekundy czuć wakacje.
-            </p>
-
-            <div class="mt-8 flex flex-col sm:flex-row gap-4">
-              <a href="#rezerwacja" class="inline-flex items-center justify-center rounded-full bg-forest text-white px-7 py-4 font-bold shadow-glow hover:-translate-y-1 transition">
-                Zarezerwuj pobyt
-              </a>
-              <a href="#galeria" class="inline-flex items-center justify-center rounded-full border border-forest/15 bg-white/75 px-7 py-4 font-bold hover:bg-white transition">
-                Zobacz klimat miejsca
-              </a>
-            </div>
-
-            <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-3xl">
-              <div class="glass rounded-3xl p-4 shadow-soft">
-                <div class="text-3xl font-black text-clay counter" data-target="65">0</div>
-                <div class="text-sm text-forest/70 mt-1">m² przytulnej przestrzeni</div>
-              </div>
-              <div class="glass rounded-3xl p-4 shadow-soft">
-                <div class="text-3xl font-black text-clay counter" data-target="2">0</div>
-                <div class="text-sm text-forest/70 mt-1">sypialnie i wygodny salon</div>
-              </div>
-              <div class="glass rounded-3xl p-4 shadow-soft">
-                <div class="text-3xl font-black text-clay">100%</div>
-                <div class="text-sm text-forest/70 mt-1">nastroju slow, natury i relaksu</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="relative reveal">
-            <div class="absolute inset-0 bg-gradient-to-br from-lake/30 via-transparent to-clay/20 blur-3xl scale-105"></div>
-            <div class="relative rounded-[2.5rem] glass shadow-glow p-4 md:p-5">
-              <div class="rounded-[2rem] overflow-hidden bg-gradient-to-br from-[#cbdcc6] via-[#f9f4ea] to-[#d5e5ef] min-h-[580px] relative">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,.95),rgba(255,255,255,0)_50%)]"></div>
-                <div class="absolute -top-10 -right-10 w-52 h-52 rounded-full bg-white/45 blur-2xl"></div>
-                <div class="absolute left-6 top-6 rounded-full bg-white/80 px-4 py-2 text-sm font-bold shadow-soft">ultra przyjazny klimat</div>
-                <div class="absolute right-6 bottom-6 rounded-3xl bg-white/80 p-4 shadow-soft max-w-[220px] animate-floaty">
-                  <div class="text-xs uppercase tracking-[0.28em] text-clay font-black">Slow escape</div>
-                  <p class="mt-2 text-sm text-forest/75">Taras, zieleń, woda i przestrzeń, która naprawdę wycisza.</p>
-                </div>
-                <div class="absolute inset-0 flex items-center justify-center p-8">
-                  <img src="logo.jpg" alt="Krecia Dolina" class="w-full max-w-[520px] object-contain drop-shadow-[0_20px_55px_rgba(39,71,58,.18)] animate-floaty" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="relative -mt-8 z-10">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-3 gap-5">
-          <div class="reveal rounded-[2rem] bg-white/80 shadow-soft p-6 border border-white/70">
-            <div class="w-12 h-12 rounded-2xl bg-sand flex items-center justify-center mb-4">🌿</div>
-            <h3 class="text-xl font-black">Blisko natury</h3>
-            <p class="text-forest/70 mt-2 leading-relaxed">Widok na zieleń, klimat jeziora i otoczenie stworzone do odpoczynku z dala od zgiełku.</p>
-          </div>
-          <div class="reveal rounded-[2rem] bg-white/80 shadow-soft p-6 border border-white/70" style="transition-delay: .12s">
-            <div class="w-12 h-12 rounded-2xl bg-sand flex items-center justify-center mb-4">🏡</div>
-            <h3 class="text-xl font-black">Przytulny domek</h3>
-            <p class="text-forest/70 mt-2 leading-relaxed">Wygodne wnętrze, taras i naturalna estetyka, która od razu robi ciepłe wrażenie.</p>
-          </div>
-          <div class="reveal rounded-[2rem] bg-white/80 shadow-soft p-6 border border-white/70" style="transition-delay: .24s">
-            <div class="w-12 h-12 rounded-2xl bg-sand flex items-center justify-center mb-4">✨</div>
-            <h3 class="text-xl font-black">Efekt wow</h3>
-            <p class="text-forest/70 mt-2 leading-relaxed">Nowoczesna, interaktywna prezentacja miejsca z miękkimi animacjami i premium klimatem.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="o-nas" class="py-24">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-14 items-center">
-          <div class="reveal">
-            <p class="text-sm font-black uppercase tracking-[0.25em] text-clay">O miejscu</p>
-            <h2 class="mt-4 text-4xl md:text-5xl font-black leading-tight">Miejsce, w którym poranna kawa smakuje lepiej.</h2>
-            <p class="mt-6 text-lg text-forest/75 leading-relaxed">
-              Krecia Dolina to domek letniskowy stworzony dla osób, które szukają ciszy, zieleni i prawdziwego odpoczynku. Charakter miejsca budują otwarte przestrzenie, naturalne otoczenie oraz atmosfera idealna na weekend we dwoje, rodzinny wyjazd albo spokojne workation.
-            </p>
-            <div class="mt-8 grid sm:grid-cols-2 gap-4">
-              <div class="rounded-3xl bg-white/80 p-5 shadow-soft">
-                <div class="text-sm uppercase tracking-[0.2em] font-black text-clay">Widok</div>
-                <p class="mt-2 text-forest/70">Jezioro, zieleń, przestrzeń i światło wpadające przez duże okna.</p>
-              </div>
-              <div class="rounded-3xl bg-white/80 p-5 shadow-soft">
-                <div class="text-sm uppercase tracking-[0.2em] font-black text-clay">Komfort</div>
-                <p class="mt-2 text-forest/70">Salon, kuchnia, taras, sypialnie i wszystko, czego potrzeba na wygodny pobyt.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="reveal">
-            <div class="rounded-[2.25rem] p-6 bg-gradient-to-br from-white via-[#f8f3ea] to-[#e7f0ec] shadow-glow border border-white/70">
-              <div class="grid grid-cols-2 gap-4">
-                <div class="col-span-2 rounded-[1.7rem] bg-forest text-white p-6 relative overflow-hidden">
-                  <div class="absolute -right-5 -top-5 w-28 h-28 rounded-full bg-white/10"></div>
-                  <div class="text-sm uppercase tracking-[0.24em] text-white/70 font-black">Dlaczego tutaj?</div>
-                  <div class="mt-3 text-2xl font-black">Bo odpoczynek powinien być prosty, piękny i naturalny.</div>
-                </div>
-                <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
-                  <div class="text-3xl mb-3">🌲</div>
-                  <div class="font-black">Las i przestrzeń</div>
-                  <div class="text-sm text-forest/70 mt-1">idealne na reset</div>
-                </div>
-                <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
-                  <div class="text-3xl mb-3">🛶</div>
-                  <div class="font-black">Klimat jeziora</div>
-                  <div class="text-sm text-forest/70 mt-1">spokój i swoboda</div>
-                </div>
-                <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
-                  <div class="text-3xl mb-3">☀️</div>
-                  <div class="font-black">Taras i światło</div>
-                  <div class="text-sm text-forest/70 mt-1">poranki z widokiem</div>
-                </div>
-                <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
-                  <div class="text-3xl mb-3">🐾</div>
-                  <div class="font-black">Domowa atmosfera</div>
-                  <div class="text-sm text-forest/70 mt-1">ciepło i swoboda</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="atrakcje" class="py-24 bg-white/50 border-y border-white/70">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto reveal">
-          <p class="text-sm font-black uppercase tracking-[0.25em] text-clay">Atmosfera pobytu</p>
-          <h2 class="mt-4 text-4xl md:text-5xl font-black">Wakacje, które nie męczą — tylko regenerują.</h2>
-          <p class="mt-5 text-lg text-forest/75">Projekt strony oparty jest o to, co najmocniej przyciąga uwagę: duże hero, miękkie animacje, szklane karty, mocne CTA, kontrast emocji i naturalne premium detale.</p>
-        </div>
-
-        <div class="mt-14 grid lg:grid-cols-3 gap-6">
-          <div class="reveal rounded-[2rem] p-7 bg-gradient-to-br from-[#edf6ef] to-white shadow-soft">
-            <div class="text-4xl">🌅</div>
-            <h3 class="mt-5 text-2xl font-black">Poranki na tarasie</h3>
-            <p class="mt-3 text-forest/70 leading-relaxed">Spokojny start dnia, kawa, światło i widok, który robi nastrój bez żadnego pośpiechu.</p>
-          </div>
-          <div class="reveal rounded-[2rem] p-7 bg-gradient-to-br from-[#f8efe5] to-white shadow-soft" style="transition-delay: .1s">
-            <div class="text-4xl">🔥</div>
-            <h3 class="mt-5 text-2xl font-black">Wieczory z klimatem</h3>
-            <p class="mt-3 text-forest/70 leading-relaxed">Ciepłe światło, rozmowy, relaks i ta przyjemna cisza, którą pamięta się długo po wyjeździe.</p>
-          </div>
-          <div class="reveal rounded-[2rem] p-7 bg-gradient-to-br from-[#eef5fa] to-white shadow-soft" style="transition-delay: .2s">
-            <div class="text-4xl">💚</div>
-            <h3 class="mt-5 text-2xl font-black">Naturalny reset</h3>
-            <p class="mt-3 text-forest/70 leading-relaxed">Idealny wybór dla osób, które chcą na chwilę odłączyć się od miasta i wrócić do prostych przyjemności.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="galeria" class="py-24">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 reveal">
+      <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 pb-16 w-full">
+        <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-12 xl:gap-16 items-center">
           <div>
-            <p class="text-sm font-black uppercase tracking-[0.25em] text-clay">Galeria w klimacie natury</p>
-            <h2 class="mt-3 text-4xl md:text-5xl font-black">Sekcje, które mają zatrzymywać wzrok.</h2>
+            <div class="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/88 shadow-float reveal is-visible">
+              <span class="h-2.5 w-2.5 rounded-full bg-aqua animate-pulse"></span>
+               • prywatność • natura • komfort
+            </div>
+
+            <h1 class="mt-6 text-5xl sm:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight text-balance reveal is-visible">
+              Krecia Dolina —
+              <span class="text-aqua">spokojny wypoczynek</span>
+              wśród zieleni, jeziora i ciszy.
+            </h1>
+
+            <p class="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-white/75 reveal is-visible">
+              Kameralny domek letniskowy zaprojektowany tak, by zwolnić tempo. Stylowe wnętrza, taras, ognisko, balia i kojący klimat miejsca tworzą pobyt, do którego chce się wracać.
+            </p>
+
+            <div class="mt-8 flex flex-col sm:flex-row gap-4 reveal is-visible">
+              <a href="#rezerwacja" class="group inline-flex items-center justify-center gap-3 rounded-full bg-aqua text-ink px-7 py-4 font-extrabold shadow-glow hover:-translate-y-1 transition">
+                Zobacz terminy
+                <svg class="w-5 h-5 transition group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#galeria" class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/8 px-7 py-4 font-bold hover:bg-white/14 transition">Przejdź do galerii</a>
+            </div>
+
+            <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 reveal is-visible">
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/8 p-4">
+                <div class="text-2xl font-black text-aqua">2</div>
+                <div class="mt-1 text-sm text-white/65">sypialnie</div>
+              </div>
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/8 p-4">
+                <div class="text-2xl font-black text-aqua">65 m²</div>
+                <div class="mt-1 text-sm text-white/65">komfortu</div>
+              </div>
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/8 p-4">
+                <div class="text-2xl font-black text-aqua">Balia</div>
+                <div class="mt-1 text-sm text-white/65">relaks na zewnątrz</div>
+              </div>
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/8 p-4">
+                <div class="text-2xl font-black text-aqua">Taras</div>
+                <div class="mt-1 text-sm text-white/65">i spokojny klimat</div>
+              </div>
+            </div>
           </div>
-          <div class="text-forest/70 max-w-xl">Poniżej znalazły się kadry stylizowane na premium landing page: miękkie światło, organiczne kształty, warstwowość i spokojna kolorystyka inspirowana logo.</div>
+
+          <div class="reveal">
+            <div class="relative rounded-[2rem] overflow-hidden shadow-luxe gradient-stroke bg-white/5">
+              <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/788936790.jpg?k=bd49cc49fe07ac306e46807e1f3c20ec2bc10e6cac18971a737b1ebf70a76f85&o=" alt="Krecia Dolina z lotu ptaka" class="h-[500px] sm:h-[620px] w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/15 to-transparent"></div>
+              <div class="absolute top-5 left-5 rounded-full border border-white/20 bg-white/12 px-4 py-2 text-sm font-semibold backdrop-blur">Kaszubskie Wzgórza</div>
+              <div class="absolute bottom-5 left-5 right-5 grid sm:grid-cols-2 gap-4">
+                <div class="glass rounded-[1.5rem] p-4">
+                  <div class="text-[11px] uppercase tracking-[0.28em] text-aqua font-black">Signature mood</div>
+                  <p class="mt-2 text-white/80 leading-relaxed">Naturalna elegancja, czytelny układ i mocny pierwszy ekran, który robi wrażenie od razu.</p>
+                </div>
+                <div class="glass rounded-[1.5rem] p-4 flex items-center gap-4">
+                  <img src="https://github.com/RoadBlack/strona-tysi/blob/main/.github/workflows/logoo.jpeg?raw=true" alt="Logo Krecia Dolina" class="h-16 w-16 rounded-2xl object-cover ring-2 ring-white/20 animate-drift" />
+                  <div>
+                    <div class="font-black">Krecia Dolina</div>
+                    <div class="text-sm text-white/70">miejsce na spokojny wyjazd o każdej porze roku</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="relative -mt-10 z-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="glass-light rounded-[2rem] p-5 sm:p-7 shadow-luxe">
+          <div class="grid lg:grid-cols-[1.2fr_.8fr] gap-6 items-center">
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+              <div class="inline-flex items-center gap-3 rounded-full bg-deep text-white px-4 py-3 shadow-float">
+                <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#FF5A5F]/15 text-[#FF5A5F]">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-6-4.35-6-10a6 6 0 0 1 12 0c0 5.65-6 10-6 10Z"/><path d="M12 13.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z"/></svg>
+                </span>
+                <div>
+                  <div class="text-xs uppercase tracking-[0.24em] text-white/50">Airbnb</div>
+                  <div class="font-extrabold">Rezerwacja online</div>
+                </div>
+              </div>
+
+              <div class="inline-flex items-center gap-3 rounded-full bg-white text-deep px-4 py-3 ring-1 ring-slate-200 shadow-sm">
+                <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#003B95]/10 text-[#003B95]">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16"/><path d="M5 19V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10"/><path d="M9 11h.01M15 11h.01M9 15h.01M15 15h.01"/></svg>
+                </span>
+                <div>
+                  <div class="text-xs uppercase tracking-[0.24em] text-slate-500">Booking.com</div>
+                  <div class="font-extrabold">Sprawdź ofertę</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <a href="https://www.airbnb.co.in/rooms/1182717664666111380?source_impression_id=p3_1776616766_P3TDRCSENpQHe4U1" target="_blank" rel="noreferrer" class="group rounded-[1.5rem] bg-deep text-white px-5 py-4 font-bold hover:-translate-y-1 transition shadow-float">
+                <div class="flex items-center justify-between gap-3">
+                  <span>Przejdź do Airbnb</span>
+                  <svg class="w-5 h-5 transition group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </div>
+              </a>
+              <a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.booking.com/hotel/pl/krecia-dolina.pl.html&ved=2ahUKEwiG0p7QrfqTAxXhORAIHZ7BB_MQFnoECCYQAQ&usg=AOvVaw2VvVXH6pfqR67XoJbdahu5" target="_blank" rel="noreferrer" class="group rounded-[1.5rem] bg-gradient-to-r from-ocean to-teal text-white px-5 py-4 font-bold hover:-translate-y-1 transition shadow-glow">
+                <div class="flex items-center justify-between gap-3">
+                  <span>Przejdź do Booking</span>
+                  <svg class="w-5 h-5 transition group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="o-miejscu" class="py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-[.9fr_1.1fr] gap-10 items-center">
+          <div class="reveal">
+            <div class="inline-flex rounded-full bg-teal/10 text-ocean px-4 py-2 text-sm font-extrabold">Miejsce stworzone do odpoczynku</div>
+            <h2 class="mt-5 text-4xl md:text-5xl font-black text-deep leading-tight text-balance">Stylowy domek, prywatna atmosfera i wszystko, czego potrzeba na wyjątkowy wyjazd.</h2>
+            <p class="mt-6 text-lg text-slate-600 leading-relaxed">Krecia Dolina to gotowy plan na weekend we dwoje, rodzinny wyjazd albo spokojny reset poza miastem. Jasne wnętrza, dopracowane detale i otoczenie natury sprawiają, że od pierwszej chwili czuć tu komfort i swobodę.</p>
+            <div class="mt-8 grid sm:grid-cols-2 gap-4">
+              <div class="rounded-[1.6rem] bg-white p-5 shadow-luxe">
+                <div class="text-base font-black text-deep">Taras i strefa zewnętrzna</div>
+                <p class="mt-2 text-slate-600 leading-relaxed">Poranna kawa, długi wieczór przy ogniu i widok, który od razu wycisza.</p>
+              </div>
+              <div class="rounded-[1.6rem] bg-white p-5 shadow-luxe">
+                <div class="text-base font-black text-deep">Balia pod gołym niebem</div>
+                <p class="mt-2 text-slate-600 leading-relaxed">Idealna na relaks po dniu pełnym spacerów, rozmów i spokojnego odpoczynku.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <article class="gallery-card sm:col-span-2 rounded-[2rem] overflow-hidden shadow-luxe bg-white">
+                <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/854531121.jpg?k=213197f0f5d92903ea31c7713d2a66552aae9236947e0b3890aa88d3a918efea&o=" alt="Domek, taras i ognisko" class="h-80 sm:h-96 w-full object-cover" />
+              </article>
+              <article class="gallery-card rounded-[2rem] overflow-hidden shadow-luxe bg-white">
+                <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/628771075.jpg?k=5b437a93efc6dcbcbbdd68d03666d9a19c185a8da036ad6186060b1ba84e2874&o=" alt="Balia" class="h-60 w-full object-cover" />
+              </article>
+              <article class="gallery-card rounded-[2rem] overflow-hidden shadow-luxe bg-white">
+                <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/571935180.jpg?k=fe567b0c619e2065e5551b04fcae8cd5edddc771f43c2b4998e171d48b651a87&o=" alt="Widok na domek" class="h-60 w-full object-cover" />
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="udogodnienia" class="pb-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 reveal">
+          <div>
+            <div class="inline-flex rounded-full bg-white px-4 py-2 text-sm font-extrabold text-ocean shadow-sm">Komfort na miejscu</div>
+            <h2 class="mt-4 text-4xl md:text-5xl font-black text-deep">Wnętrze i atmosfera, które zostają w pamięci.</h2>
+          </div>
+          <p class="max-w-2xl text-slate-600 leading-relaxed">Czytelna struktura strony, mocne zdjęcia i konkretne informacje pomagają szybko poczuć klimat obiektu i przejść do rezerwacji.</p>
         </div>
 
-        <div class="mt-12 grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-          <button class="photo-card reveal group rounded-[2rem] overflow-hidden relative min-h-[360px] text-left shadow-soft" data-title="Domowa przytulność" data-copy="Ciepłe materiały, naturalne światło i spokojny charakter miejsca.">
-            <div class="photo-shift absolute inset-0 transition duration-700 bg-[linear-gradient(160deg,rgba(92,125,96,.92),rgba(121,167,201,.5)),url('logo.jpg')] bg-cover bg-center"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"></div>
-            <div class="absolute left-5 right-5 bottom-5 text-white">
-              <div class="text-xs uppercase tracking-[0.24em] text-white/70 font-black">01</div>
-              <div class="mt-2 text-2xl font-black">Domowa przytulność</div>
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+          <div class="reveal rounded-[1.8rem] bg-white p-6 shadow-luxe hover:-translate-y-1 transition">
+            <div class="h-12 w-12 rounded-2xl bg-aqua/30 text-ocean flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
             </div>
-          </button>
+            <h3 class="text-xl font-black text-deep">Przytulny salon</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">Miejsce do odpoczynku, rozmów i wieczorów w spokojnym, naturalnym klimacie.</p>
+          </div>
+          <div class="reveal rounded-[1.8rem] bg-white p-6 shadow-luxe hover:-translate-y-1 transition">
+            <div class="h-12 w-12 rounded-2xl bg-aqua/30 text-ocean flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 8h16M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M6 8v10a2 2 0 0 0 2 2h3v-5h2v5h3a2 2 0 0 0 2-2V8"/></svg>
+            </div>
+            <h3 class="text-xl font-black text-deep">W pełni wyposażona kuchnia</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">Gotowanie na miejscu bez pośpiechu — od śniadania po długie kolacje.</p>
+          </div>
+          <div class="reveal rounded-[1.8rem] bg-white p-6 shadow-luxe hover:-translate-y-1 transition">
+            <div class="h-12 w-12 rounded-2xl bg-aqua/30 text-ocean flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="5" y="10" width="14" height="10" rx="2"/></svg>
+            </div>
+            <h3 class="text-xl font-black text-deep">Prywatność i spokój</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">Wypoczynek bez tłumu, w miejscu, które daje przestrzeń i oddech.</p>
+          </div>
+          <div class="reveal rounded-[1.8rem] bg-white p-6 shadow-luxe hover:-translate-y-1 transition">
+            <div class="h-12 w-12 rounded-2xl bg-aqua/30 text-ocean flex items-center justify-center mb-5 animate-pulseRing">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 13c0 2.2 1.8 4 4 4s4-1.8 4-4V4H8v9Z"/><path d="M6 6h2m8 0h2"/></svg>
+            </div>
+            <h3 class="text-xl font-black text-deep">Balia i klimat slow</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">Wieczorny relaks pod niebem, który staje się najmocniejszym wspomnieniem pobytu.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <button class="photo-card reveal group rounded-[2rem] overflow-hidden relative min-h-[360px] text-left shadow-soft" style="transition-delay: .08s" data-title="Nad wodą i zielenią" data-copy="Natura, przestrzeń i wakacyjna lekkość, które od razu budują emocję miejsca.">
-            <div class="photo-shift absolute inset-0 transition duration-700 bg-gradient-to-br from-lake via-[#9ec4b7] to-[#edf4ef]"></div>
-            <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.95), transparent 20%), radial-gradient(circle at 70% 72%, rgba(255,255,255,.6), transparent 14%), linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.12));"></div>
-            <div class="absolute bottom-0 inset-x-0 h-24 bg-[#6c97bb]"></div>
-            <div class="absolute bottom-10 left-8 w-32 h-7 rounded-full bg-[#9ec16e] rotate-6"></div>
-            <div class="absolute bottom-14 right-14 w-24 h-6 rounded-full bg-[#85b25e] -rotate-6"></div>
-            <div class="absolute left-5 right-5 bottom-5 text-white">
-              <div class="text-xs uppercase tracking-[0.24em] text-white/70 font-black">02</div>
-              <div class="mt-2 text-2xl font-black">Nad wodą i zielenią</div>
-            </div>
-          </button>
+    <section id="galeria" class="py-24 bg-deep text-white overflow-hidden">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 reveal">
+          <div>
+            <div class="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-extrabold text-aqua">Galeria Kreciej Doliny</div>
+            <h2 class="mt-4 text-4xl md:text-5xl font-black">Przesuń, otwórz i zobacz miejsce z bliska.</h2>
+          </div>
+          <p class="max-w-2xl text-white/65 leading-relaxed">Galeria działa świetnie na telefonie — można przewijać poziomo, a każde zdjęcie otwiera się na pełnym ekranie.</p>
+        </div>
 
-          <button class="photo-card reveal group rounded-[2rem] overflow-hidden relative min-h-[360px] text-left shadow-soft" style="transition-delay: .16s" data-title="Spokój slow travel" data-copy="Minimalny pośpiech, maksymalny oddech. Tu klimat robi całą robotę.">
-            <div class="photo-shift absolute inset-0 transition duration-700 bg-gradient-to-br from-[#f3e4d5] via-[#fffaf3] to-[#d9e6d5]"></div>
-            <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-white/70 blur-xl"></div>
-            <div class="absolute bottom-0 inset-x-0 h-28 bg-[#89b481]"></div>
-            <div class="absolute bottom-16 left-8 w-52 h-16 rounded-[999px] bg-[#6d8d58]"></div>
-            <div class="absolute bottom-24 right-8 w-36 h-24 rounded-[2rem] bg-[#b76d54]"></div>
-            <div class="absolute bottom-28 right-12 w-28 h-20 rounded-t-[1.6rem] bg-[#f2ebdd]"></div>
-            <div class="absolute left-5 right-5 bottom-5 text-forest">
-              <div class="text-xs uppercase tracking-[0.24em] text-forest/60 font-black">03</div>
-              <div class="mt-2 text-2xl font-black">Spokój slow travel</div>
-            </div>
+        <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-3 hide-scrollbar">
+          <button class="gallery-card snap-start shrink-0 w-[85vw] sm:w-[48vw] lg:w-[31%] rounded-[2rem] overflow-hidden relative shadow-float focus:outline-none" data-full="https://cf.bstatic.com/xdata/images/hotel/max1024x768/788940078.jpg?k=2b3bfc9c5876bfdfb55578bc254606d9bc98a4dcff34469c2647a71d7076a48e&o=" data-title="Salon">
+            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/788940078.jpg?k=2b3bfc9c5876bfdfb55578bc254606d9bc98a4dcff34469c2647a71d7076a48e&o=" alt="Salon" class="h-80 w-full object-cover" />
+            <span class="absolute inset-x-4 bottom-4 rounded-2xl bg-ink/55 px-4 py-3 text-left font-bold">Salon</span>
           </button>
-
-          <button class="photo-card reveal group rounded-[2rem] overflow-hidden relative min-h-[360px] text-left shadow-soft" style="transition-delay: .24s" data-title="Wieczorny klimat" data-copy="Miękkie światło, ciepłe kolory i nastrojowy finisz dnia.">
-            <div class="photo-shift absolute inset-0 transition duration-700 bg-gradient-to-br from-[#27473a] via-[#4d6b5b] to-[#9a5e4c]"></div>
-            <div class="absolute inset-x-0 bottom-0 h-32 bg-black/20"></div>
-            <div class="absolute top-16 left-12 w-24 h-24 rounded-full bg-[#ffd9a4]/40 blur-2xl animate-pulseSlow"></div>
-            <div class="absolute left-5 right-5 bottom-5 text-white">
-              <div class="text-xs uppercase tracking-[0.24em] text-white/70 font-black">04</div>
-              <div class="mt-2 text-2xl font-black">Wieczorny klimat</div>
-            </div>
+          <button class="gallery-card snap-start shrink-0 w-[85vw] sm:w-[48vw] lg:w-[31%] rounded-[2rem] overflow-hidden relative shadow-float focus:outline-none" data-full="https://cf.bstatic.com/xdata/images/hotel/max1024x768/628768380.jpg?k=e79a9572789c515662550681e730183ee5d4acb8c1cf9d27f163d34022307074&o=" data-title="Kuchnia">
+            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/628768380.jpg?k=e79a9572789c515662550681e730183ee5d4acb8c1cf9d27f163d34022307074&o=" alt="Kuchnia" class="h-80 w-full object-cover" />
+            <span class="absolute inset-x-4 bottom-4 rounded-2xl bg-ink/55 px-4 py-3 text-left font-bold">Kuchnia</span>
+          </button>
+          <button class="gallery-card snap-start shrink-0 w-[85vw] sm:w-[48vw] lg:w-[31%] rounded-[2rem] overflow-hidden relative shadow-float focus:outline-none" data-full="https://cf.bstatic.com/xdata/images/hotel/max1024x768/571770102.jpg?k=e801a28993c89196df572224f149784ff6319446d439ddccbb33cdb996b0a5c1&o=" data-title="Łazienka">
+            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/571770102.jpg?k=e801a28993c89196df572224f149784ff6319446d439ddccbb33cdb996b0a5c1&o=" alt="Łazienka" class="h-80 w-full object-cover" />
+            <span class="absolute inset-x-4 bottom-4 rounded-2xl bg-ink/55 px-4 py-3 text-left font-bold">Łazienka</span>
+          </button>
+          <button class="gallery-card snap-start shrink-0 w-[85vw] sm:w-[48vw] lg:w-[31%] rounded-[2rem] overflow-hidden relative shadow-float focus:outline-none" data-full="https://cf.bstatic.com/xdata/images/hotel/max1024x768/586328244.jpg?k=4e66e6d275e6fbe68538e82ca6c2049ae1b36cc7dd4add58ccac9feb51054ead&o=" data-title="Balia i domek">
+            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/586328244.jpg?k=4e66e6d275e6fbe68538e82ca6c2049ae1b36cc7dd4add58ccac9feb51054ead&o=" alt="Balia i domek" class="h-80 w-full object-cover" />
+            <span class="absolute inset-x-4 bottom-4 rounded-2xl bg-ink/55 px-4 py-3 text-left font-bold">Balia i domek</span>
           </button>
         </div>
       </div>
     </section>
 
-    <section id="rezerwacja" class="py-24">
+    <section id="opinie" class="py-24">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="rounded-[2.5rem] overflow-hidden relative bg-gradient-to-br from-forest via-[#355444] to-clay text-white shadow-glow">
-          <div class="absolute inset-0 opacity-20" style="background: radial-gradient(circle at top right, rgba(255,255,255,.45), transparent 26%), radial-gradient(circle at bottom left, rgba(121,167,201,.45), transparent 32%);"></div>
-          <div class="relative grid lg:grid-cols-[1fr_.9fr] gap-10 p-8 md:p-12 lg:p-14 items-center">
-            <div class="reveal show">
-              <p class="text-sm font-black uppercase tracking-[0.25em] text-white/70">Rezerwacja</p>
-              <h2 class="mt-4 text-4xl md:text-5xl font-black leading-tight">Wybierz platformę i zaplanuj swój pobyt w Kreciej Dolinie.</h2>
-              <p class="mt-5 text-white/80 text-lg leading-relaxed">Strona została przygotowana tak, żeby prowadzić użytkownika prosto do działania: szybko, jasno i z emocją. Jeden klik i można przejść do rezerwacji na Airbnb albo Booking.</p>
+        <div class="grid lg:grid-cols-[.95fr_1.05fr] gap-10 items-start">
+          <div class="reveal">
+            <div class="inline-flex rounded-full bg-teal/10 text-ocean px-4 py-2 text-sm font-extrabold">Pobyt, który zostaje na dłużej</div>
+            <h2 class="mt-4 text-4xl md:text-5xl font-black text-deep">Idealne miejsce na wyjazd we dwoje, rodzinny weekend albo odpoczynek poza miastem.</h2>
+            <p class="mt-6 text-slate-600 text-lg leading-relaxed">Na takich stronach liczy się klimat, konkret i łatwa ścieżka do rezerwacji. Dlatego wszystko prowadzi tu do jednego: szybkiego poczucia, że to miejsce jest naprawdę warte wyjazdu.</p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="reveal rounded-[1.8rem] bg-white p-6 shadow-luxe">
+              <div class="flex items-center gap-2 text-aqua mb-4">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="text-slate-700 leading-relaxed">„Piękny klimat, dużo spokoju i świetna przestrzeń do odpoczynku. Wieczór przy balii i poranek na tarasie robią robotę.”</p>
+              <div class="mt-4 text-sm font-bold text-deep">Goście weekendowi</div>
+            </div>
+            <div class="reveal rounded-[1.8rem] bg-white p-6 shadow-luxe">
+              <div class="flex items-center gap-2 text-aqua mb-4">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="text-slate-700 leading-relaxed">„Bardzo estetyczne miejsce, wygodne wnętrza i wyjątkowy klimat wokół domku. Super na reset od codzienności.”</p>
+              <div class="mt-4 text-sm font-bold text-deep">Pobyt rodzinny</div>
+            </div>
+            <div class="reveal sm:col-span-2 rounded-[1.8rem] bg-gradient-to-r from-deep to-ocean p-7 text-white shadow-float">
+              <div class="text-[11px] uppercase tracking-[0.32em] text-aqua font-black">Szybka decyzja, prosty kontakt</div>
+              <div class="mt-3 text-2xl md:text-3xl font-black text-balance">Zobacz zdjęcia, poczuj klimat i przejdź od razu do rezerwacji na ulubionej platformie.</div>
+              <div class="mt-5 flex flex-col sm:flex-row gap-3">
+                <a href="https://www.airbnb.co.in/rooms/1182717664666111380?source_impression_id=p3_1776616766_P3TDRCSENpQHe4U1" target="_blank" rel="noreferrer" class="rounded-full bg-white text-ink px-5 py-3 font-extrabold text-center hover:bg-aqua transition">Airbnb</a>
+                <a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.booking.com/hotel/pl/krecia-dolina.pl.html&ved=2ahUKEwiG0p7QrfqTAxXhORAIHZ7BB_MQFnoECCYQAQ&usg=AOvVaw2VvVXH6pfqR67XoJbdahu5" target="_blank" rel="noreferrer" class="rounded-full border border-white/20 bg-white/10 px-5 py-3 font-extrabold text-center hover:bg-white/15 transition">Booking.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rezerwacja" class="pb-32">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="rounded-[2.25rem] overflow-hidden bg-deep text-white shadow-luxe relative">
+          <div class="absolute inset-0 opacity-70 bg-[radial-gradient(circle_at_top_right,rgba(137,224,234,.20),transparent_22%),radial-gradient(circle_at_bottom_left,rgba(37,167,184,.22),transparent_24%)]"></div>
+          <div class="relative z-10 grid lg:grid-cols-[1.05fr_.95fr] gap-10 p-7 sm:p-10 lg:p-14 items-center">
+            <div class="reveal">
+              <div class="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-extrabold text-aqua">Rezerwacja</div>
+              <h2 class="mt-5 text-4xl md:text-5xl font-black leading-tight text-balance">Gotowe. Wybierz platformę i zarezerwuj pobyt w Kreciej Dolinie.</h2>
+              <p class="mt-5 text-white/72 text-lg leading-relaxed">Jeśli szukasz miejsca z charakterem, które łączy naturę, wygodę i elegancję — tutaj wszystko jest już przygotowane. Wystarczy wybrać dogodny termin.</p>
             </div>
 
             <div class="grid gap-4 reveal">
-              <a target="_blank" rel="noopener noreferrer" href="https://www.airbnb.co.in/rooms/1182717664666111380?source_impression_id=p3_1776616766_P3TDRCSENpQHe4U1" class="group rounded-[2rem] bg-white/10 hover:bg-white/15 border border-white/15 p-6 flex items-center justify-between transition hover:-translate-y-1">
+              <a href="https://www.airbnb.co.in/rooms/1182717664666111380?source_impression_id=p3_1776616766_P3TDRCSENpQHe4U1" target="_blank" rel="noreferrer" class="rounded-[1.8rem] bg-white text-ink p-6 shadow-float hover:-translate-y-1 transition">
                 <div class="flex items-center gap-4">
-                  <div class="w-14 h-14 rounded-2xl bg-white/90 text-[#ff5a5f] flex items-center justify-center shadow-soft">
-                    <svg viewBox="0 0 32 32" class="w-7 h-7" fill="currentColor" aria-hidden="true"><path d="M16 3.2c-1.8 0-3.2 1-4 2.6L4.7 21c-1.5 3.2.7 7 4.3 7 1.7 0 3.2-.9 4-2.4l3-5.6 3 5.6c.8 1.5 2.3 2.4 4 2.4 3.6 0 5.8-3.8 4.3-7L20 5.8c-.8-1.6-2.2-2.6-4-2.6Zm0 4.4c.5 0 1 .3 1.3.9l7.2 15.1c.4.8-.2 1.7-1.1 1.7-.4 0-.8-.2-1-.6L18 16.5c-.4-.7-1.1-1.1-2-1.1s-1.6.4-2 1.1l-4.4 8.2c-.2.4-.6.6-1 .6-.9 0-1.5-.9-1.1-1.7l7.2-15.1c.3-.6.8-.9 1.3-.9Zm0 4.8c-1.3 0-2.4 1.1-2.4 2.4S14.7 17.2 16 17.2s2.4-1.1 2.4-2.4S17.3 12.4 16 12.4Z"/></svg>
+                  <div class="h-14 w-14 rounded-2xl bg-[#FF5A5F]/12 text-[#FF5A5F] flex items-center justify-center">
+                    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-6-4.35-6-10a6 6 0 0 1 12 0c0 5.65-6 10-6 10Z"/><path d="M12 13.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z"/></svg>
                   </div>
-                  <div>
-                    <div class="font-black text-xl">Airbnb</div>
-                    <div class="text-white/70 text-sm">Rezerwacja przez Airbnb</div>
+                  <div class="flex-1">
+                    <div class="text-sm uppercase tracking-[0.24em] text-slate-500 font-bold">Airbnb</div>
+                    <div class="text-2xl font-black">Zobacz ofertę</div>
                   </div>
+                  <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
                 </div>
-                <span class="text-white/80 font-bold group-hover:translate-x-1 transition">Przejdź →</span>
               </a>
 
-              <a target="_blank" rel="noopener noreferrer" href="https://www.booking.com/hotel/pl/krecia-dolina.pl.html" class="group rounded-[2rem] bg-white/10 hover:bg-white/15 border border-white/15 p-6 flex items-center justify-between transition hover:-translate-y-1">
+              <a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.booking.com/hotel/pl/krecia-dolina.pl.html&ved=2ahUKEwiG0p7QrfqTAxXhORAIHZ7BB_MQFnoECCYQAQ&usg=AOvVaw2VvVXH6pfqR67XoJbdahu5" target="_blank" rel="noreferrer" class="rounded-[1.8rem] bg-gradient-to-r from-ocean to-teal p-6 shadow-glow hover:-translate-y-1 transition">
                 <div class="flex items-center gap-4">
-                  <div class="w-14 h-14 rounded-2xl bg-white/90 text-[#003b95] flex items-center justify-center shadow-soft">
-                    <svg viewBox="0 0 24 24" class="w-7 h-7" fill="currentColor" aria-hidden="true"><path d="M4 4h8.2c3.1 0 5.2 1.7 5.2 4.4 0 1.8-.8 3-2.3 3.7 2 .6 3.1 2 3.1 4.1 0 3-2.4 4.8-5.9 4.8H4V4Zm7.7 6.7c1.5 0 2.3-.7 2.3-1.9 0-1.1-.8-1.8-2.2-1.8H7.6v3.7h4.1Zm.4 7.3c1.7 0 2.7-.8 2.7-2.2 0-1.3-.9-2.1-2.7-2.1H7.6V18h4.5Z"/></svg>
+                  <div class="h-14 w-14 rounded-2xl bg-white/16 text-white flex items-center justify-center">
+                    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16"/><path d="M5 19V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10"/><path d="M9 11h.01M15 11h.01M9 15h.01M15 15h.01"/></svg>
                   </div>
-                  <div>
-                    <div class="font-black text-xl">Booking.com</div>
-                    <div class="text-white/70 text-sm">Rezerwacja przez Booking</div>
+                  <div class="flex-1">
+                    <div class="text-sm uppercase tracking-[0.24em] text-white/75 font-bold">Booking.com</div>
+                    <div class="text-2xl font-black">Sprawdź dostępność</div>
                   </div>
+                  <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
                 </div>
-                <span class="text-white/80 font-bold group-hover:translate-x-1 transition">Przejdź →</span>
               </a>
-
-              <div class="rounded-[2rem] bg-white/10 border border-white/15 p-5 text-white/75 text-sm leading-relaxed">
-                <span class="font-black text-white">Tip:</span> możesz tu dodać później numer telefonu, formularz kontaktowy, mapę Google, prawdziwe zdjęcia obiektu albo kalendarz dostępności.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="pb-24">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="rounded-[2.5rem] bg-white/80 shadow-soft p-8 md:p-10 reveal">
-          <div class="grid lg:grid-cols-[.9fr_1.1fr] gap-10 items-start">
-            <div>
-              <p class="text-sm font-black uppercase tracking-[0.25em] text-clay">FAQ</p>
-              <h2 class="mt-3 text-4xl font-black">Co jeszcze można rozbudować?</h2>
-              <p class="mt-4 text-forest/70 leading-relaxed">Ta wersja to mocny, estetyczny landing page. Bardzo łatwo można go rozwinąć o dodatkowe sekcje i własne materiały.</p>
-            </div>
-            <div class="space-y-4">
-              <details class="group rounded-3xl bg-sand/70 p-5">
-                <summary class="list-none cursor-pointer font-black flex items-center justify-between">Prawdziwa galeria zdjęć <span class="group-open:rotate-45 transition text-clay text-2xl">+</span></summary>
-                <p class="mt-3 text-forest/70">Wystarczy podmienić bloki galerii na realne fotografie domku i okolicy. Najlepszy efekt da duże zdjęcie hero oraz 6–8 fotografii lifestyle.</p>
-              </details>
-              <details class="group rounded-3xl bg-sand/70 p-5">
-                <summary class="list-none cursor-pointer font-black flex items-center justify-between">Mapa i lokalizacja <span class="group-open:rotate-45 transition text-clay text-2xl">+</span></summary>
-                <p class="mt-3 text-forest/70">Można dodać mapę dojazdu, najbliższe atrakcje, restauracje, trasy spacerowe albo plan wypoczynku na weekend.</p>
-              </details>
-              <details class="group rounded-3xl bg-sand/70 p-5">
-                <summary class="list-none cursor-pointer font-black flex items-center justify-between">Formularz kontaktowy <span class="group-open:rotate-45 transition text-clay text-2xl">+</span></summary>
-                <p class="mt-3 text-forest/70">Jeżeli chcesz, strona może mieć też własny formularz, WhatsApp, Messenger albo direct booking bez pośredników.</p>
-              </details>
             </div>
           </div>
         </div>
@@ -431,83 +474,86 @@
     </section>
   </main>
 
-  <div id="modal" class="fixed inset-0 bg-black/60 z-[60] hidden items-center justify-center p-4">
-    <div class="max-w-xl w-full rounded-[2rem] bg-white p-8 shadow-glow relative">
-      <button id="closeModal" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-sand hover:bg-[#eadfcb] transition text-2xl">×</button>
-      <div class="text-sm font-black uppercase tracking-[0.25em] text-clay">Podgląd sekcji</div>
-      <h3 id="modalTitle" class="mt-3 text-3xl font-black">Tytuł</h3>
-      <p id="modalCopy" class="mt-4 text-lg text-forest/75 leading-relaxed">Opis</p>
-    </div>
-  </div>
-
-  <footer class="border-t border-white/70 bg-white/55">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+  <footer class="border-t border-slate-200 bg-white/70 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-4 items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="logo.jpg" alt="Krecia Dolina logo" class="h-12 w-12 rounded-full object-cover" />
+        <img src="https://github.com/RoadBlack/strona-tysi/blob/main/.github/workflows/logoo.jpeg?raw=true" alt="Krecia Dolina" class="h-12 w-12 rounded-full object-cover" />
         <div>
-          <div class="font-black">Krecia Dolina</div>
-          <div class="text-sm text-forest/65">Strona w klimacie natury i slow wypoczynku</div>
+          <div class="font-black text-deep">Krecia Dolina</div>
+          <div class="text-sm text-slate-500">Kaszubskie Wzgórza • domek letniskowy</div>
         </div>
       </div>
-      <div class="text-sm text-forest/60">© Krecia Dolina — projekt landing page z Tailwind CSS</div>
+      <div class="text-sm text-slate-500 text-center md:text-right">Stylowy wypoczynek blisko natury • Rezerwacja przez Airbnb i Booking.com</div>
     </div>
   </footer>
 
+  <div class="fixed bottom-4 inset-x-4 z-50 lg:hidden">
+    <div class="rounded-[1.6rem] bg-deep text-white p-3 shadow-float border border-white/10">
+      <div class="flex items-center gap-3">
+        <a href="https://www.airbnb.co.in/rooms/1182717664666111380?source_impression_id=p3_1776616766_P3TDRCSENpQHe4U1" target="_blank" rel="noreferrer" class="flex-1 rounded-2xl bg-white text-ink px-4 py-3 text-center font-extrabold">Airbnb</a>
+        <a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.booking.com/hotel/pl/krecia-dolina.pl.html&ved=2ahUKEwiG0p7QrfqTAxXhORAIHZ7BB_MQFnoECCYQAQ&usg=AOvVaw2VvVXH6pfqR67XoJbdahu5" target="_blank" rel="noreferrer" class="flex-1 rounded-2xl bg-gradient-to-r from-ocean to-teal px-4 py-3 text-center font-extrabold">Booking</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="fixed inset-0 z-[70] hidden items-center justify-center bg-ink/90 p-4">
+    <button id="closeLightbox" class="absolute top-4 right-4 h-12 w-12 rounded-full bg-white/10 text-white flex items-center justify-center">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="max-w-5xl w-full">
+      <div class="rounded-[2rem] overflow-hidden bg-white/5 border border-white/10 shadow-float">
+        <img id="lightboxImage" src="" alt="Zdjęcie galerii" class="w-full max-h-[80vh] object-cover" />
+      </div>
+      <div id="lightboxTitle" class="mt-4 text-center text-white text-lg font-bold"></div>
+    </div>
+  </div>
+
   <script>
-    const reveals = document.querySelectorAll('.reveal');
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+      });
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('show');
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
       });
-    }, { threshold: 0.15 });
-    reveals.forEach(el => observer.observe(el));
-
-    const counters = document.querySelectorAll('.counter');
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = Number(el.dataset.target);
-        let current = 0;
-        const duration = 900;
-        const stepTime = Math.max(20, duration / target);
-        const timer = setInterval(() => {
-          current += 1;
-          el.textContent = current;
-          if (current >= target) clearInterval(timer);
-        }, stepTime);
-        counterObserver.unobserve(el);
-      });
-    }, { threshold: 0.7 });
-    counters.forEach(el => counterObserver.observe(el));
+    }, { threshold: 0.16 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     const spotlight = document.getElementById('spotlight');
     window.addEventListener('mousemove', (e) => {
-      spotlight.style.left = e.clientX + 'px';
-      spotlight.style.top = e.clientY + 'px';
+      if (!spotlight) return;
+      spotlight.style.left = `${e.clientX}px`;
+      spotlight.style.top = `${e.clientY}px`;
     });
 
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalCopy = document.getElementById('modalCopy');
-    document.querySelectorAll('.photo-card').forEach(card => {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    document.querySelectorAll('[data-full]').forEach(card => {
       card.addEventListener('click', () => {
-        modalTitle.textContent = card.dataset.title;
-        modalCopy.textContent = card.dataset.copy;
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
+        lightboxImage.src = card.dataset.full;
+        lightboxTitle.textContent = card.dataset.title || '';
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        document.body.style.overflow = 'hidden';
       });
     });
-    document.getElementById('closeModal').addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    });
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
-    });
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('closeLightbox').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
   </script>
 </body>
 </html>
